@@ -88,6 +88,36 @@
   .bronnen summary{cursor:pointer;font-weight:600;color:var(--hb-blauw)}
   .bronnen ol{padding-left:20px}
   .bronnen a{color:var(--hb-blauw)}
+
+  /* ---- Productvergelijker (ingevoegd tabblad, eigen huisstijl/variabelen, volledig scoped) ---- */
+  #tab-productvergelijker{--navy:#1D2632;--geel:#FFCD00;--pv-grijs:#f4f5f7;--pv-rand:#d9dde3;--pv-muted:#5b6575;--pv-best:#fff3bf}
+  #tab-productvergelijker{font-size:15px;line-height:1.45}
+  #tab-productvergelijker .pvnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  #tab-productvergelijker .pvnav button{border:1px solid var(--pv-rand);background:#fff;color:var(--navy);padding:8px 14px;border-radius:999px;font-size:14px;cursor:pointer;font-family:inherit}
+  #tab-productvergelijker .pvnav button.on{background:var(--navy);color:var(--geel);border-color:var(--navy);font-weight:600}
+  #tab-productvergelijker .pvtab{display:none}
+  #tab-productvergelijker .pvtab.on{display:block}
+  #tab-productvergelijker .panel{background:#fff;border:1px solid var(--pv-rand);border-radius:10px;padding:16px;margin-bottom:16px}
+  #tab-productvergelijker .panel h2{margin:0 0 10px;font-size:16px;color:var(--navy)}
+  #tab-productvergelijker .panel h3{margin:14px 0 8px;font-size:14px}
+  #tab-productvergelijker .intro{margin:0 0 12px;color:var(--pv-muted);font-size:14px}
+  #tab-productvergelijker .tablewrap{overflow-x:auto;background:#fff;border:1px solid var(--pv-rand);border-radius:10px;margin-bottom:16px}
+  #tab-productvergelijker table.cmp{border-collapse:collapse;width:100%;min-width:720px;font-size:13.5px}
+  #tab-productvergelijker table.cmp th,#tab-productvergelijker table.cmp td{padding:8px 10px;border-bottom:1px solid #e6e9ee;vertical-align:top;text-align:left}
+  #tab-productvergelijker table.cmp thead th{background:var(--navy);color:#fff;font-weight:600}
+  #tab-productvergelijker table.cmp thead th .meta{display:block;font-weight:400;font-size:11.5px;color:#c9d1db;margin-top:2px}
+  #tab-productvergelijker table.cmp td.lbl,#tab-productvergelijker table.cmp th.lbl{position:sticky;left:0;background:#fff;min-width:200px;max-width:240px;font-weight:600;z-index:1}
+  #tab-productvergelijker table.cmp thead th.lbl{background:var(--navy);z-index:2}
+  #tab-productvergelijker table.cmp tr.grp td{background:#eef1f5;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  #tab-productvergelijker table.cmp td.best{background:var(--pv-best)}
+  #tab-productvergelijker .pvtag{display:inline-block;font-size:10.5px;background:var(--geel);color:var(--navy);padding:1px 6px;border-radius:4px;margin-left:6px;font-weight:700;vertical-align:middle}
+  #tab-productvergelijker ul.aand{margin:0;padding-left:20px}
+  #tab-productvergelijker ul.aand li{margin-bottom:7px}
+  #tab-productvergelijker table.pos{min-width:600px}
+  #tab-productvergelijker table.pos td,#tab-productvergelijker table.pos th{vertical-align:top}
+  #tab-productvergelijker .pvsrc{font-size:12.5px;color:var(--pv-muted)}
+  #tab-productvergelijker .pvsrc li{margin-bottom:4px}
+  #tab-productvergelijker .pvnote{font-size:12.5px;color:var(--pv-muted)}
 </style>
 </head>
 <body>
@@ -100,6 +130,7 @@
   <button data-tab="diff">Tekstvergelijking</button>
   <button data-tab="mail">E-mailsjabloon</button>
   <button data-tab="onderzoek">Onderzoek (concept)</button>
+  <button data-tab="productvergelijker">Productvergelijker</button>
 </nav>
 
 <main>
@@ -218,6 +249,94 @@
     </details>
   </div>
 </section>
+
+<!-- ===================== PRODUCTVERGELIJKER (ingevoegd tabblad) ===================== -->
+<section id="tab-productvergelijker" class="verborgen">
+  <div class="melding">
+    <b>Let op bron:</b> deze vergelijking is aangeleverd als los document, met expliciete bronvermelding per product (informatieblad/productkaart/polisvoorwaarden, met versie en datum — zie "Bronnen" onderaan). Controleer bij afwijkingen altijd de polisvoorwaarden en het polisblad; dit is geen advies.
+  </div>
+  <div class="pvnav">
+    <button class="on" data-pvtab="wlv">Woonlasten</button>
+    <button data-pvtab="ig">Inkomensbescherming</button>
+    <button data-pvtab="arv">Aflossing</button>
+  </div>
+
+  <section id="pv-wlv" class="pvtab on">
+    <div id="mx-wlv"></div>
+    <div class="panel">
+      <h2>Aandachtspunten woonlasten</h2>
+      <ul class="aand">
+        <li>TAF Maandlastbeschermer is alleen mogelijk voor klanten met een eigen woning. Credit Life dekt ook huurders.</li>
+        <li>De leeftijdsgrens van 62 jaar, de eindleeftijd van 70 jaar en de werkloosheidsdekking staan in de productkaart alleen bij Quantum Leben. Bij iptiQ is dit niet vermeld. Voor een klant van 61 jaar of ouder controleer je dit in de polisvoorwaarden.</li>
+        <li>Credit Life kent een eigen risico van 365 of 730 dagen. TAF biedt ook 180 dagen. Bij een korte eigen risicoperiode is TAF het enige alternatief in deze vergelijking.</li>
+        <li>Credit Life claimt de ruimste definitie van arbeidsongeschiktheid. De productkaart laat het criterium zien en dat is structureel gelijk aan TAF: twee jaar beroepsarbeid, daarna keuze. Het verschil zit in de polisvoorwaarden, die niet zijn aangeleverd.</li>
+        <li>Credit Life biedt een Basis-variant die alleen bij ongevallen uitkeert. Die is er bij TAF niet. Dat maakt Credit Life flexibeler in premie.</li>
+        <li>Bij TAF heeft een wijziging van woonlasten of een verhuizing naar een huurwoning geen invloed op de uitkering. Bij Credit Life staat hier niets over.</li>
+        <li>Credit Life betaalt vanaf 35% arbeidsongeschiktheid het volledige bedrag. TAF betaalt boven 35% en kan pro rata uitkeren als keuze.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="pv-ig" class="pvtab">
+    <div id="mx-ig"></div>
+    <div class="panel">
+      <h2>Aandachtspunten inkomensbescherming</h2>
+      <ul class="aand">
+        <li>Credit Life garandeert een percentage van het laatst verdiende inkomen tot € 10.000 per maand. TAF verzekert tot € 7.500 verzekerd maandinkomen. Bij een inkomen boven ongeveer € 8.333 bindt het TAF-maximum bij 90%.</li>
+        <li>Credit Life betaalt altijd een minimumbedrag, aanvullend op de volledige WIA bij aanvang. Dat bedrag wordt gemaximeerd op het gegarandeerd inkomen.</li>
+        <li>Indexatie: TAF maximaal 3% per jaar, gevolgd per 1 januari. Credit Life maximaal 2% per jaar, halfjaarlijks met het minimumloon.</li>
+        <li>Verhoging zonder gezondheidsvragen: TAF maximaal 10%, vanaf 12 maanden, herhaalbaar. Credit Life één keer per jaar en alleen als de klant volledig arbeidsgeschikt is geweest, aan het werk is en niets bekend is over ontslag.</li>
+        <li>Credit Life biedt ook werkloosheidsdekking tot 20% van het bruto maandinkomen, een extra uitkering van € 3.000 bij IVA en ziekenhuisdaggeld. TAF noemt deze in de productkaart niet. TAF neemt Royal Doctors wel op in de premie.</li>
+        <li>Bij TAF kan de uitkering na het eerste jaar starten, met een verzekerd percentage van minimaal 75%. Credit Life kiest tussen start na het eerste jaar en start bij aanvang WIA.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="pv-arv" class="pvtab">
+    <div id="mx-arv"></div>
+    <div class="panel">
+      <h2>Positionering van de aflosdekking</h2>
+      <div class="tablewrap" style="margin:0">
+      <table class="cmp pos">
+        <thead><tr><th class="lbl">Kenmerk</th><th>Credit Life ARV</th><th>BNP Paribas Cardif HAV</th><th>Maandlastverzekering (woonlasten of inkomen)</th></tr></thead>
+        <tbody>
+          <tr><td class="lbl">Trigger</td><td>IVA</td><td>Elke WIA-uitkering</td><td>Vanaf 35% (CL) of meer dan 35% (TAF) arbeidsongeschiktheid</td></tr>
+          <tr><td class="lbl">Uitkering</td><td>Eenmalig, vrij besteedbaar</td><td>Eenmalig volgens schema, laagste van schema en hypotheekschuld</td><td>Maandbedrag</td></tr>
+          <tr><td class="lbl">Begunstigde</td><td>Verzekerde</td><td>Geldverstrekker (standaard), anders 50%</td><td>Verzekerde</td></tr>
+          <tr><td class="lbl">Werkloosheid</td><td>Niet verzekerd</td><td>Ja, maximaal 12 maanden totaal</td><td>Optioneel bij CL WLV, CL IG en TAF Quantum Leben</td></tr>
+          <tr><td class="lbl">Fiscaal</td><td>Netto</td><td>Netto</td><td>Per product: netto of bruto</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Aandachtspunten aflossing</h2>
+      <ul class="aand">
+        <li>HAV dekt elke WIA-uitkering, dus ook de WGA. ARV dekt alleen IVA. Het HAV-dekkingsbereik is daarmee breder, maar de uitkering blijft eenmalig en gebonden aan het schema.</li>
+        <li>De HAV-uitkering gaat standaard naar de geldverstrekker voor aflossing. Is een andere begunstigde aangewezen, dan betaalt de HAV 50%. De ARV betaalt vrij besteedbaar aan de verzekerde.</li>
+        <li>HAV heeft een wachttijd van drie maanden voor arbeidsongeschiktheid en een inloopperiode van zes maanden voor werkloosheid. ARV kent geen no-claimperiode.</li>
+        <li>HAV dekt werkloosheid met maandelijkse uitkeringen, maximaal twaalf maanden totaal per verzekering. ARV dekt werkloosheid niet.</li>
+        <li>Bedragen, leeftijdsgrenzen en premie van de HAV staan niet in de voorwaarden. Die staan op het verzekeringsbewijs. Zonder dat is er geen vergelijking op bedrag mogelijk.</li>
+        <li>Premiewijziging: de ARV laat de verzekeraar de premie en voorwaarden jaarlijks aanpassen. De HAV doet dat bij elk nieuw contract en voor groepen op elk moment, met minimaal twee maanden bericht vooraf.</li>
+        <li>Beide producten zijn netto: de premie is niet aftrekbaar en de uitkering is onbelast.</li>
+        <li>Het infoblad van de ARV is versie 2.0 van april 2022. Controleer of dit nog de actuele versie is.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="panel">
+    <h2>Bronnen</h2>
+    <ul class="pvsrc">
+      <li>Credit Life Woonlastenverzekering, informatieblad CL-WLV v4.0 (mei 2024)</li>
+      <li>TAF Maandlastbeschermer, productkaart TAF-PK-MLB (augustus 2025), polisvoorwaarden QL MLB 12-2022 en IPT MLB 01-2025</li>
+      <li>Credit Life Inkomensgarantie, informatieblad CL-IG v8.0 (februari 2025)</li>
+      <li>TAF Inkomensbeschermer, productkaart TAF-PK-TIB (augustus 2025), polisvoorwaarden IPT TIB 01-2025</li>
+      <li>Credit Life ArbeidsongeschiktheidsRisicoVerzekering (ARV), informatieblad CL-ARV v2.0 (april 2022)</li>
+      <li>BNP Paribas Cardif Hypotheek Aflos Verzekering, verzekeringsvoorwaarden HAV1221 (14 pagina's)</li>
+    </ul>
+    <p class="pvnote">Gebaseerd op productkaarten, infobladen en verzekeringsvoorwaarden. Bij afwijkingen gelden de polisvoorwaarden en het polisblad.</p>
+  </div>
+</section>
 </main>
 <footer>Voorwaarden vergelijker · hulpmiddel voor adviseurs · geen advies of aanbod</footer>
 
@@ -235,6 +354,7 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   $("#tab-diff").classList.toggle("verborgen",b.dataset.tab!=="diff");
   $("#tab-mail").classList.toggle("verborgen",b.dataset.tab!=="mail");
   $("#tab-onderzoek").classList.toggle("verborgen",b.dataset.tab!=="onderzoek");
+  $("#tab-productvergelijker").classList.toggle("verborgen",b.dataset.tab!=="productvergelijker");
 });
 
 /* ---------- Model (in-memory, geen localStorage) ---------- */
@@ -488,6 +608,216 @@ $("#mailKopieer").onclick=async()=>{
 renderMail();
 
 render();
+})();
+</script>
+
+<!-- ---------- Productvergelijker: eigen script, eigen scope ---------- -->
+<script>
+(function(){
+"use strict";
+const WLV = {
+  products:[
+    {name:'Credit Life Woonlastenverzekering', meta:'RheinLand, CL-WLV v4.0 (mei 2024)'},
+    {name:'TAF Maandlastbeschermer, iptiQ', meta:'TAF-PK-MLB (aug 2025), alleen AO'},
+    {name:'TAF Maandlastbeschermer, Quantum Leben', meta:'TAF-PK-MLB (aug 2025), AO en WW'}
+  ],
+  rows:[
+    {g:'Toegang'},
+    {l:'Verzekeraar',v:['Credit Life (RheinLand Versicherungs AG), eigen A+-rating volgens Credit Life','iptiQ Life S.A.','Quantum Leben']},
+    {l:'Doelgroep',v:['Werknemers met koop- of huurwoning','Werknemers in loondienst met eigen woning','Werknemers in loondienst met eigen woning']},
+    {l:'Minimale leeftijd bij aanvang (jaar)',v:['18','18','18'],n:[18,18,18],b:'min'},
+    {l:'Maximale leeftijd bij aanvang (jaar)',v:['61','Niet vermeld in productkaart','62'],n:[61,null,62],b:'max'},
+    {l:'Minimale looptijd (jaar)',v:['5','5','5'],n:[5,5,5],b:'min'},
+    {l:'Maximale looptijd (einddatum)',v:['Tot 70 jaar (t/m 69); polis stopt bij AOW','Niet vermeld in productkaart','Maximaal AOW-leeftijd, max. 70 jaar'],n:[70,null,70],b:'max'},
+    {l:'Opzegging',v:['Maandelijks','Maandelijks','Maandelijks']},
+    {g:'Arbeidsongeschiktheid: verzekerd bedrag'},
+    {l:'Minimaal verzekerd bedrag per maand (€)',v:['125','150','150'],n:[125,150,150],b:'min'},
+    {l:'Maximaal verzekerd bedrag per maand (€)',v:['2.500','2.500','2.500'],n:[2500,2500,2500],b:'max'},
+    {l:'Maximum op basis van woonlasten',v:['Niet van toepassing','125% van bruto woonlasten (rente, aflossing, ORV, opstal, GWL, VvE)','125% van bruto woonlasten (rente, aflossing, ORV, opstal, GWL, VvE)']},
+    {g:'Arbeidsongeschiktheid: voorwaarden'},
+    {l:'Dekkingsvarianten',v:['Compleet of Basis (Basis alleen bij ongeval)','Eén dekking, geen Basis-variant vermeld','Eén dekking, geen Basis-variant vermeld']},
+    {l:'Minimaal aantal uren per week',v:['16','16','16'],n:[16,16,16]},
+    {l:'Eigen risicoperioden (dagen)',v:['365 of 730','180, 365 of 730','180, 365 of 730']},
+    {l:'Kortste eigen risicoperiode (dagen)',v:['365','180','180'],n:[365,180,180],b:'min'},
+    {l:'Uitkeringsduur per claim',v:['Vanaf einde eigen risico tot einde verzekering','2, 5 of 10 jaar, of tot einde looptijd; eigen risico afgetrokken','2, 5 of 10 jaar, of tot einde looptijd; eigen risico afgetrokken']},
+    {l:'Criterium jaar 1 en 2',v:['Beroepsarbeid','Beroepsarbeid','Beroepsarbeid']},
+    {l:'Criterium vanaf jaar 3',v:['Gangbaar, passend of beroep (keuze)','Beroeps-, passend of gangbaar (keuze)','Beroeps-, passend of gangbaar (keuze)']},
+    {l:'Uitkeringsgrens',v:['Vanaf 35% arbeidsongeschiktheid','Boven 35% arbeidsongeschiktheid','Boven 35% arbeidsongeschiktheid']},
+    {l:'Uitkeringstype',v:['Altijd volledig maandbedrag','Pro rata of volledig (keuze)','Pro rata of volledig (keuze)']},
+    {l:'Beroepenlijst',v:['Niet vermeld','Van toepassing (taf.nl)','Van toepassing (taf.nl)']},
+    {l:'Extra uitkering bij IVA (€)',v:['3.000','Niet vermeld','Niet vermeld'],n:[3000,null,null]},
+    {l:'Ziekenhuisdaggeld per dag (€)',v:['35 (max. € 1.050)','Niet vermeld','Niet vermeld'],n:[35,null,null]},
+    {l:'Woonlastenwijziging of verhuizing',v:['Niet vermeld','Geen invloed op uitkering','Geen invloed op uitkering']},
+    {g:'Werkloosheid (optioneel)'},
+    {l:'Beschikbaar',v:['Optioneel; alleen samen met AO Compleet en alleen bij aanvang','Niet beschikbaar','Optioneel (Quantum Leben)']},
+    {l:'Carenz (dagen)',v:['180','n.v.t.','180'],n:[180,null,180],b:'min'},
+    {l:'Minimaal verzekerd bedrag WW (€)',v:['125 (bandbreedte als AO)','n.v.t.','150 (bandbreedte als AO)'],n:[125,null,150]},
+    {l:'Maximaal verzekerd bedrag WW',v:['Max. 25% boven AO-bedrag','n.v.t.','Max. 125% van AO-bedrag']},
+    {l:'Uitkeringsduur per claim (maanden)',v:['12 of 24','n.v.t.','12 of 24']},
+    {l:'Maximale totale uitkeringsduur',v:['Onbeperkt aantal claims','n.v.t.','24 maanden per verzekering']},
+    {l:'UWV-onafhankelijke uitkering (maanden)',v:['12','n.v.t.','12'],n:[12,null,12]},
+    {g:'Premie, fiscus en kosten'},
+    {l:'Fiscaal',v:['Netto of bruto (keuze)','Netto of bruto (keuze)','Netto of bruto (keuze)']},
+    {l:'Premievrijstelling bij uitkering',v:['Ja, gehele premie','Ja, gehele premie','Ja, gehele premie']},
+    {l:'Premievrijstelling voor claim',v:['Niet vermeld','Vanaf restlooptijd gelijk aan eigen risico','Vanaf restlooptijd gelijk aan eigen risico']},
+    {l:'Eenmalige poliskosten (€)',v:['Niet vermeld','18','18'],n:[null,18,18]},
+    {l:'Tussentijdse premiewijziging',v:['Niet vermeld','Alleen in uitzonderlijke gevallen','Alleen in uitzonderlijke gevallen']},
+    {l:'Onderhoud: maximale verhoging verzekerd bedrag',v:['Niet vermeld','20%','20%'],n:[null,20,20]},
+    {l:'Onderhoud: frequentie en voorwaarden',v:['Niet vermeld','Voorwaarden per verzekeraar (lifeevents)','Eens per 5 jaar']},
+    {l:'Royal Doctors',v:['Niet inbegrepen','Inbegrepen (onbeperkt)','Inbegrepen (onbeperkt)']},
+    {g:'Acceptatie'},
+    {l:'Medisch: BMI-grens',v:['Vanaf 35 uitgesloten','Niet vermeld','Niet vermeld'],n:[35,null,null]},
+    {l:'Medisch: gezondheidsverklaring',v:['Online, deels automatisch beoordeeld','Online, via onafhankelijk medisch adviesbureau','Online, via onafhankelijk medisch adviesbureau']},
+    {l:'Voorlopige dekking: wat geldt',v:['Vanaf aanvraag: ongevalsstoornissen niet uitgesloten; vanaf medisch akkoord niet uitgesloten','Alleen ongeval','Alleen ongeval']},
+    {l:'Voorlopige dekking: maximale duur (maanden)',v:['Niet vermeld','3','3'],n:[null,3,3]},
+    {l:'Ingangsdatum: termijn na aanvraag (maanden)',v:['6','Niet vermeld','Niet vermeld'],n:[6,null,null]},
+    {l:'Geldigheid gezondheidsverklaring (maanden)',v:['6','Niet vermeld','Niet vermeld'],n:[6,null,null]}
+  ]
+};
+
+const IG = {
+  products:[
+    {name:'Credit Life Inkomensgarantie', meta:'RheinLand, CL-IG v8.0 (feb 2025)'},
+    {name:'TAF Inkomensbeschermer', meta:'TAF-PK-TIB (aug 2025), verzekeraar iptiQ'}
+  ],
+  rows:[
+    {g:'Toegang'},
+    {l:'Verzekeraar',v:['Credit Life (RheinLand Versicherungs AG)','iptiQ Life S.A., in volmacht van TAF']},
+    {l:'Doelgroep',v:['Werknemers; zelfstandigen en DGA niet verzekerbaar','Werknemers in loondienst in Nederland; huiseigenaren, huurders en thuiswonende kinderen']},
+    {l:'Minimaal aantal uren per week',v:['16','16'],n:[16,16]},
+    {l:'Minimale leeftijd bij aanvang (jaar)',v:['18','18'],n:[18,18],b:'min'},
+    {l:'Maximale leeftijd bij aanvang (jaar)',v:['61','62 (beroepenlijst van toepassing)'],n:[61,62],b:'max'},
+    {l:'Minimale looptijd (jaar)',v:['5','5'],n:[5,5],b:'min'},
+    {l:'Maximale looptijd (einddatum)',v:['Tot 70 jaar (t/m 69); polis stopt bij AOW','Maximaal AOW-leeftijd, max. 70 jaar'],n:[70,70],b:'max'},
+    {l:'Opzegging',v:['Maandelijks','Maandelijks']},
+    {g:'Inkomen: basis'},
+    {l:'Minimaal percentage',v:['70%','70%'],n:[70,70],b:'min'},
+    {l:'Maximaal percentage',v:['100%','90%'],n:[100,90],b:'max'},
+    {l:'Maximale basis per maand (€)',v:['10.000 (€ 120.000 per jaar)','7.500 verzekerd maandinkomen'],n:[10000,7500],b:'max'},
+    {l:'Gegarandeerd of verzekerd',v:['Gegarandeerd maandinkomen','Verzekerd maandinkomen']},
+    {l:'Werking',v:['Vult inkomen aan tot gegarandeerd bedrag; ook bij gedeeltelijke AO en niet benutte restverdiencapaciteit','Uitkering is het gat tussen verzekerd maandinkomen en inkomen bij AO, UWV volgend']},
+    {l:'Inkomen bij AO meegerekend',v:['Bruto loon, WIA, sociale voorzieningen en aanvullende inkomensverzekeringen; (woon)lastenverzekering nooit','Bruto loon, WIA, sociale voorzieningen en andere werknemersverzekeringen; geen hypotheek- of kredietlastenverzekeringen']},
+    {g:'Inkomen: uitkering'},
+    {l:'Startmoment uitkering',v:['Na eerste jaar of bij aanvang WIA (keuze)','Bij WIA; optioneel na eerste jaar (min. 75% verzekerd)']},
+    {l:'Minimumuitkering',v:['Altijd een minimum, aanvullend op volledige WIA bij aanvang; gemaximeerd op gegarandeerd inkomen','Niet vermeld']},
+    {l:'Uitkeringsduur',v:['Maximaal looptijd van de verzekering','Zolang WIA loopt, nooit langer dan einddatum']},
+    {l:'Uitsluitingen',v:['Algemene uitsluitingen, waaronder gebieden met negatief reisadvies','Niet vermeld in productkaart']},
+    {l:'Extra uitkering bij IVA (€)',v:['3.000','Niet vermeld'],n:[3000,null]},
+    {l:'Ziekenhuisdaggeld per dag (€)',v:['35 (max. € 1.050), alleen bij lopende IG-uitkering','Niet vermeld'],n:[35,null]},
+    {l:'Dekkingsvarianten',v:['Compleet of Basis (Basis alleen bij ongeval)','Eén dekking, geen Basis-variant vermeld']},
+    {g:'Inkomen: aanpassing'},
+    {l:'Indexatie: maximaal per jaar',v:['2%','3%'],n:[2,3],b:'max'},
+    {l:'Indexatie: moment',v:['Halfjaarlijks, mee met minimumloon','Per 1 januari, volgt WIA']},
+    {l:'Verhoging zonder gezondheidsvragen: maximum',v:['In gelijke verhouding aan salarisstijging','10%'],n:[null,10]},
+    {l:'Verhoging zonder gezondheidsvragen: voorwaarden',v:['Eén keer per jaar; volledig arbeidsgeschikt (180 dagen), aan het werk met betaling, geen ontslagbekendheid','Vanaf 12 maanden na ingang, herhaalbaar; jaarlijkse inkomenscheck']},
+    {g:'Werkloosheid (optioneel)'},
+    {l:'Beschikbaar',v:['Ja, alleen bij aanvang en met AO Compleet','Niet vermeld in productkaart']},
+    {l:'Minimaal verzekerd bedrag WW (€)',v:['125','n.v.t.'],n:[125,null]},
+    {l:'Maximaal verzekerd bedrag WW (% van huidig bruto maandinkomen)',v:['20% (basis max. € 10.000)','n.v.t.'],n:[20,null]},
+    {l:'Carenz (dagen)',v:['180','n.v.t.'],n:[180,null],b:'min'},
+    {l:'Uitkeringsduur per claim (maanden)',v:['12 of 24','n.v.t.']},
+    {l:'Aantal claims',v:['Onbeperkt','n.v.t.']},
+    {g:'Premie, fiscus en acceptatie'},
+    {l:'Fiscaal',v:['Premie aftrekbaar; uitkering loonbelast','Premie aftrekbaar (bruto); uitkering belast met inkomstenbelasting']},
+    {l:'Premievrijstelling bij uitkering',v:['Ja, volledig','Ja, geen AO-premie tijdens uitkering']},
+    {l:'Premievrijstelling laatste 2 jaar',v:['Ja','Ja, altijd']},
+    {l:'Eenmalige poliskosten (€)',v:['Niet vermeld','18'],n:[null,18]},
+    {l:'Tussentijdse premiewijziging',v:['Niet vermeld','Alleen in uitzonderlijke gevallen']},
+    {l:'Royal Doctors',v:['Niet inbegrepen','Inbegrepen (onbeperkt)']},
+    {l:'Medisch: BMI-grens',v:['Vanaf 35 uitgesloten','Niet vermeld'],n:[35,null]},
+    {l:'Medisch: gezondheidsverklaring',v:['Online, deels automatisch beoordeeld; niet nodig voor Basis ongeval','Online, via onafhankelijk medisch adviesbureau']},
+    {l:'Voorlopige dekking: wat geldt',v:['Vanaf aanvraag: ongevalsstoornissen niet uitgesloten; vanaf medisch akkoord niet uitgesloten','Alleen ongeval']},
+    {l:'Voorlopige dekking: maximale duur (maanden)',v:['Niet vermeld','3'],n:[null,3]},
+    {l:'Melding ziekte: termijn (maanden)',v:['3','Niet vermeld'],n:[3,null],b:'min'},
+    {l:'Ingangsdatum: termijn na aanvraag (maanden)',v:['6','Niet vermeld'],n:[6,null]}
+  ]
+};
+
+const ARV = {
+  products:[
+    {name:'Credit Life ARV (ArbeidsongeschiktheidsRisicoVerzekering)', meta:'RheinLand, CL-ARV v2.0 (apr 2022)'},
+    {name:'BNP Paribas Cardif Hypotheek Aflos Verzekering', meta:'HAV1221, Cardif-Assurances Risques Divers'}
+  ],
+  rows:[
+    {g:'Toegang en looptijd'},
+    {l:'Verzekeraar',v:['Credit Life (RheinLand Versicherungs AG)','Cardif-Assurances Risques Divers S.A. (BNP Paribas Cardif), Nederlands kantoor Oosterhout']},
+    {l:'Doelgroep',v:['Werknemers met hypotheek bij afsluiten; zelfstandigen en DGA niet verzekerbaar','Werknemer in loondienst, min. 16 uur per week, woont en werkt in Nederland']},
+    {l:'Minimale leeftijd bij aanvang (jaar)',v:['18','Niet vermeld in voorwaarden'],n:[18,null],b:'min'},
+    {l:'Maximale leeftijd bij aanvang (jaar)',v:['61','Niet vermeld in voorwaarden'],n:[61,null],b:'max'},
+    {l:'Minimale looptijd (jaar)',v:['5','Niet vermeld; loopt tot einddatum uitkeringsschema'],n:[5,null],b:'min'},
+    {l:'Maximale looptijd (jaar)',v:['30','Niet vermeld; loopt tot einddatum uitkeringsschema'],n:[30,null],b:'max'},
+    {l:'Maximale eindleeftijd',v:['70 (t/m 69)','Niet vermeld in voorwaarden'],n:[70,null],b:'max'},
+    {l:'Opzegging',v:['Maandelijks','Altijd zonder opgave van reden; verzekering stopt binnen één maand']},
+    {g:'Arbeidsongeschiktheid: verzekerd bedrag'},
+    {l:'Minimaal verzekerd bedrag (€)',v:['25.000','Volgens uitkeringsschema (niet in voorwaarden)'],n:[25000,null],b:'min'},
+    {l:'Maximaal verzekerd bedrag (€)',v:['250.000','Volgens uitkeringsschema (niet in voorwaarden)'],n:[250000,null],b:'max'},
+    {l:'Maximum ten opzichte van hypotheek',v:['Niet hoger dan hypotheekbedrag','Uitkering beperkt tot hypotheekschuld op dag WIA']},
+    {l:'Daling verzekerd bedrag',v:['Annuïtair (0 t/m 8%) of lineair, kiesbaar','Volgens uitkeringsschema op verzekeringsbewijs']},
+    {l:'Uitkering is het laagste van',v:['Niet van toepassing','Schema-bedrag en hypotheekschuld op dag WIA']},
+    {g:'Arbeidsongeschiktheid: voorwaarden'},
+    {l:'Uitkeringstrigger',v:['Blijvende volledige arbeidsongeschiktheid: IVA-uitkering van UWV','Elke WIA-uitkering van UWV (WGA of IVA)']},
+    {l:'Uitkeringsvorm',v:['Eenmalig verzekerd bedrag, vrij besteedbaar, uitbetaald aan verzekerde','Eenmalig bedrag volgens uitkeringsschema; uitbetaald aan begunstigde']},
+    {l:'Standaard begunstigde',v:['Verzekerde','Geldverstrekker']},
+    {l:'Uitkering bij andere begunstigde (%)',v:['Niet van toepassing','50'],n:[null,50]},
+    {l:'Wachttijd na aanvraag (maanden)',v:['0; geen no-claimperiode','3; geen uitkering bij AO in deze periode'],n:[0,3],b:'min'},
+    {l:'Uitsluiting bestaande aandoening',v:['Via gezondheidsverklaring; clausules mogelijk','Geen uitkering bij AO door aandoening of ongeval vóór start eerste contract, of door aandoening ontstaan in eerste 3 maanden; verhoogd risico-regels']},
+    {l:'Algemene uitsluitingen',v:['Molest, atoomreacties, bovenmatig alcohol, clausules','Molest, atoomkernreacties, opzet en roekeloosheid, fraude, misdrijf in laatste 8 jaar, sanctielijsten']},
+    {l:'Terrorisme',v:['Niet vermeld','Uitkering alleen als NHT uitkeert; uitkering dan vaak later']},
+    {l:'Melding en claimtermijn',v:['Schriftelijk melden bij IVA-uitkering','Direct melden bij WIA; uiterlijk 3 jaar na eerste dag recht op WIA']},
+    {g:'Werkloosheid'},
+    {l:'Werkloosheidsdekking',v:['Niet beschikbaar','Ja, op verzekeringsbewijs; maandelijkse uitkering bij WW-einde zonder werk']},
+    {l:'Maximale uitkeringsduur WW (maanden, totaal)',v:['n.v.t.','12'],n:[null,12]},
+    {l:'Wachttijd WW (maanden)',v:['n.v.t.','6'],n:[null,6]},
+    {l:'Uitsluiting tijdelijk contract',v:['n.v.t.','Geen uitkering bij niet-verlengd tijdelijk contract, tenzij eerdere uitkering wordt voortgezet']},
+    {g:'Premie, fiscus en acceptatie'},
+    {l:'Fiscaal',v:['Netto: premie niet aftrekbaar, uitkering onbelast','Premie niet aftrekbaar, geen inkomstenbelasting over uitkeringen']},
+    {l:'Premiewijziging',v:['Verzekeraar mag premie en voorwaarden jaarlijks aanpassen','Bij nieuw contract (jaarlijks) of voor groepen op elk moment; minimaal twee maanden vooraf']},
+    {l:'Premie-inning',v:['Niet vermeld','Maandelijks automatisch; premie voor WW-deel stopt als WW-dekking eindigt']},
+    {l:'Nieuwe hypotheek',v:['Niet vermeld','Verzekering kan mee; te weinig betaalde premie wordt verrekend met uitkering']},
+    {l:'Voorlopige dekking: wat geldt',v:['Ongevalsstoornissen niet uitgesloten; na medisch akkoord niet uitgesloten','Niet vermeld in voorwaarden']},
+    {l:'Voorlopige dekking: maximale duur (maanden)',v:['6','Niet vermeld in voorwaarden'],n:[6,null]},
+    {l:'Ingangsdatum: termijn na aanvraag (maanden)',v:['6','Startdatum eerste contract; verwachte startdatum hypotheek max. 12 maanden na aanvraag'],n:[6,null]},
+    {l:'Medisch: BMI-grens',v:['Vanaf 35 uitgesloten','Niet in voorwaarden'],n:[35,null]},
+    {l:'Medisch: gezondheidsverklaring',v:['Online, deels automatisch beoordeeld','Niet in voorwaarden; verhoogd risico op bestaande aandoeningen uitgesloten']},
+    {l:'Geldigheid gezondheidsverklaring (maanden)',v:['6','Niet vermeld'],n:[6,null]}
+  ]
+};
+
+function bestIdx(r){
+  if(!r.b || !r.n) return [];
+  const idx = r.n.map((x,i)=>i).filter(i => r.n[i] != null);
+  if(idx.length < r.v.length) return [];
+  const vals = idx.map(i => r.n[i]);
+  if(Math.min(...vals) === Math.max(...vals)) return [];
+  const t = r.b === 'max' ? Math.max(...vals) : Math.min(...vals);
+  return idx.filter(i => r.n[i] === t);
+}
+
+function buildMatrix(t){
+  const cols = t.products;
+  let h = '<div class="tablewrap"><table class="cmp"><thead><tr><th class="lbl">Voorwaarde</th>' +
+    cols.map(p => '<th>' + p.name + '<span class="meta">' + p.meta + '</span></th>').join('') + '</tr></thead><tbody>';
+  t.rows.forEach(r => {
+    if(r.g){ h += '<tr class="grp"><td colspan="' + (cols.length+1) + '">' + r.g + '</td></tr>'; return; }
+    const b = bestIdx(r);
+    h += '<tr><td class="lbl">' + r.l + '</td>' + r.v.map((v,i) =>
+      '<td' + (b.includes(i) ? ' class="best"' : '') + '>' + v + (b.includes(i) ? '<span class="pvtag">gunstigst</span>' : '') + '</td>'
+    ).join('') + '</tr>';
+  });
+  return h + '</tbody></table></div>';
+}
+
+const root = document.getElementById('tab-productvergelijker');
+root.querySelectorAll('.pvnav button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    root.querySelectorAll('.pvnav button').forEach(b=>b.classList.toggle('on', b===btn));
+    root.querySelectorAll('.pvtab').forEach(s=>s.classList.toggle('on', s.id === 'pv-'+btn.dataset.pvtab));
+  });
+});
+
+document.getElementById('mx-wlv').innerHTML = buildMatrix(WLV);
+document.getElementById('mx-ig').innerHTML = buildMatrix(IG);
+document.getElementById('mx-arv').innerHTML = buildMatrix(ARV);
 })();
 </script>
 </body>
