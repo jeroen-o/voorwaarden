@@ -74,6 +74,20 @@
   .verborgen{display:none!important}
   footer{font-size:12px;color:var(--muted);text-align:center;padding:16px}
   input[type=file]{display:none}
+  table.ond{border-collapse:collapse;width:100%;min-width:900px;font-size:13.5px}
+  table.ond th,table.ond td{border:1px solid var(--lijn);padding:8px 10px;vertical-align:top;text-align:left}
+  table.ond thead th{background:var(--hb-blauw);color:#fff;position:sticky;top:0}
+  table.ond tbody th{background:#f3eee6;white-space:nowrap}
+  table.ond td ul{margin:0;padding-left:18px}
+  table.ond td ul li{margin-bottom:4px}
+  .conflict{display:inline-block;font-size:11px;font-weight:600;padding:2px 7px;border-radius:10px;white-space:nowrap}
+  .conflict.laag{background:var(--groen);color:var(--groen-t)}
+  .conflict.midden{background:var(--oranje);color:var(--oranje-t)}
+  .conflict.hoog{background:var(--rood);color:var(--rood-t)}
+  .bronnen{margin-top:16px;font-size:12.5px;color:var(--muted)}
+  .bronnen summary{cursor:pointer;font-weight:600;color:var(--hb-blauw)}
+  .bronnen ol{padding-left:20px}
+  .bronnen a{color:var(--hb-blauw)}
 </style>
 </head>
 <body>
@@ -85,6 +99,7 @@
   <button class="actief" data-tab="tabel">Vergelijkingstabel</button>
   <button data-tab="diff">Tekstvergelijking</button>
   <button data-tab="mail">E-mailsjabloon</button>
+  <button data-tab="onderzoek">Onderzoek (concept)</button>
 </nav>
 
 <main>
@@ -161,6 +176,48 @@
     <div class="mailbox" id="mailBody"></div>
   </div>
 </section>
+
+<!-- ===================== ONDERZOEK (CONCEPT) ===================== -->
+<section id="tab-onderzoek" class="verborgen">
+  <div class="melding">
+    <b>AFM/compliance — concept, ongeverifieerd:</b> deze gegevens komen uit webonderzoek op vergelijkingssites (homefinance.nl, actuelerentestanden.nl e.d.) en kifid-uitspraken, <u>niet</u> uit de officiële voorwaardendocumenten van de aanbieders zelf. Bronnen spreken elkaar op meerdere punten tegen en sommige documenten zijn verouderd (2010–2014). <b>Gebruik dit niet in klantadvies</b> — laad alleen datgene over naar de hoofdtabel wat je hebt geverifieerd tegen de actuele voorwaarden/offerte, met bron en peildatum. Dit is onderzocht voor 8 van de ~36 hypotheekverstrekkers; de overige hypotheekverstrekkers en alle ORV-, woonlastenbeschermer- en inkomensverzekeringsaanbieders zijn nog niet onderzocht (acceptatiecriteria van verzekeraars staan doorgaans niet publiek, alleen via intermediairportaal/acceptatiegids).
+  </div>
+  <div class="kaart tabelwrap">
+    <table class="ond">
+      <thead><tr><th>Aanbieder</th><th>Boetevrij aflossen / jaar</th><th>Verhuisregeling</th><th>Rentemiddeling</th><th>Bronconflict</th></tr></thead>
+      <tbody>
+        <tr><th>Rabobank</th><td>10% (Basis) / 20% (Plus) van de oorspronkelijke hoofdsom</td><td>Rentevaste periode meeneembaar bij verhuizing binnen Nederland; aanvraag binnen 3 maanden na verkoop/aflossing</td><td>Geen informatie gevonden</td><td><span class="conflict laag">laag</span></td></tr>
+        <tr><th>ING</th><td>10–20%, of een vast bedrag €20.000–€25.000/jaar — bronnen wijken af</td><td>Rentevaste periode meeneembaar; nieuwe offerte tot 6 maanden na aflossing oude hypotheek</td><td>Komt voor in inhoudsopgave algemene voorwaarden; clausule zelf niet gevonden</td><td><span class="conflict hoog">hoog</span></td></tr>
+        <tr><th>ABN AMRO</th><td>10% (Budget Hypotheek) — of "geen boete boven 10%" sinds dec. 2025 genoemd (tegenstrijdig)</td><td>Verhuisregeling §16 in Voorwaarden Basis Hypotheken; clausuletekst zelf niet gevonden</td><td>Alleen bij resterende rentevaste periode &lt;10 jaar; eenmalig €100 aan kosten, maandelijks verwerkt in nieuwe rente</td><td><span class="conflict hoog">hoog</span></td></tr>
+        <tr><th>Obvion</th><td>Woon Hypotheek: 100% met eigen geld; overige vormen 10–20% — bronnen wijken af</td><td>Rentecontract + resterende rentevaste periode meeneembaar, termijn ca. 3 maanden na aflossing</td><td>Nieuwe rentevaste periode bij dezelfde verstrekker; vergoeding verwerkt in nieuwe rente</td><td><span class="conflict midden">midden</span></td></tr>
+        <tr><th>MUNT Hypotheken</th><td>100% boetevrij met eigen geld; met geleend geld 10% van de hoofdsom/jaar — bronnen wijken af</td><td>Meeneemregeling; rente/looptijd/rentevaste periode meeneembaar, met "eigen voorwaarden" (niet gespecificeerd)</td><td>Niet bevestigd of aangeboden in gevonden bronnen</td><td><span class="conflict midden">midden</span></td></tr>
+        <tr><th>de Volksbank (SNS / BLG Wonen)</th><td>Meestal 10–20% genoemd, één bron noemt 100% eigen vermogen — sterk uiteenlopend</td><td>3 vs. 6 maanden termijn na aflossing — bronnen tegenstrijdig; €195 kosten bij verkoop/oversluiten</td><td>Geen informatie gevonden</td><td><span class="conflict hoog">hoog</span> — let op: merken SNS/BLG Wonen/RegioBank gaan eind 2024 verder als ASN Bank, voorwaarden onder oude naam kunnen verouderd zijn</td></tr>
+        <tr><th>Venn Hypotheken</th><td>Geen Venn-specifiek percentage gevonden</td><td>Alleen bij definitieve verkoop + notarieel gepasseerd; bindend kredietaanbod nieuwe woning binnen 6 maanden vereist</td><td>Geen informatie gevonden</td><td><span class="conflict midden">midden</span></td></tr>
+        <tr><th>Tulp Hypotheken</th><td>100% met eigen middelen / 10% zonder eigen middelen, óf 10–25% in andere bronnen — sterk uiteenlopend, waarschijnlijk productafhankelijk</td><td>Geen Tulp-specifieke clausule gevonden (alleen algemene marktinformatie)</td><td>Geen informatie gevonden</td><td><span class="conflict hoog">hoog</span></td></tr>
+      </tbody>
+    </table>
+    <details class="bronnen">
+      <summary>Geraadpleegde bronnen (webonderzoek, niet de officiële voorwaarden)</summary>
+      <ol>
+        <li><a href="https://www.rabobank.nl/particulieren/sparen/extra-rendement/uw-hypotheek-aflossen/" target="_blank" rel="noopener">Rabobank – Extra aflossen op je hypotheek</a></li>
+        <li><a href="https://www.homefinance.nl/hypotheek/aanbieders/rabobank/meenemen/" target="_blank" rel="noopener">HomeFinance – Rabobank verhuisregeling</a></li>
+        <li><a href="https://www.homefinance.nl/hypotheek/berekenen/ing/boetevrij-aflossen/" target="_blank" rel="noopener">HomeFinance – ING boetevrij aflossen</a></li>
+        <li><a href="https://www.lawinsider.com/nl/contracts/eXO150SXUtF" target="_blank" rel="noopener">Lawinsider – Basisinformatie en Algemene Voorwaarden ING Hypotheken</a></li>
+        <li><a href="https://www.abnamro.nl/nl/prive/hypotheken/mijn-hypotheek/hypotheekrente-wijzigen/rentemiddeling.html" target="_blank" rel="noopener">ABN AMRO – Rentemiddeling</a></li>
+        <li><a href="https://www-et5.abnamro.nl/nl/media/ABNA2618_Voorwaarden%20Basis%20Hypotheken_DEF_tcm16-37438.pdf" target="_blank" rel="noopener">ABN AMRO – Voorwaarden Basis Hypotheken (PDF)</a></li>
+        <li><a href="https://www.actuelerentestanden.nl/hypotheek/rente/aflossingsvrij-abn-amro" target="_blank" rel="noopener">ActueleRentestanden – ABN AMRO aflossingsvrij</a></li>
+        <li><a href="https://www.obvion.nl/Downloads/Product-en-Acceptatiekaart" target="_blank" rel="noopener">Obvion – Product- en Acceptatiekaart</a></li>
+        <li><a href="https://www.homefinance.nl/hypotheek/oversluiten/obvion-meenemen/" target="_blank" rel="noopener">HomeFinance – Obvion meenemen</a></li>
+        <li><a href="https://lawinsider.com/nl/contracts/jz6cr4kc6h6" target="_blank" rel="noopener">Lawinsider – Algemene voorwaarden van uw MUNT hypotheek</a></li>
+        <li><a href="https://www.homefinance.nl/hypotheek/aanbieders/munt/voorwaarden/" target="_blank" rel="noopener">HomeFinance – MUNT voorwaarden</a></li>
+        <li><a href="https://www.blgwonen.nl/download/algemene-voorwaarden-hypotheken-versie-01-10-2010.html" target="_blank" rel="noopener">BLG Wonen – Algemene Voorwaarden Hypotheken (2010, verouderd)</a></li>
+        <li><a href="https://www.kifid.nl/wp-content/uploads/2022/11/Uitspraak-2022-0979-Bindend.pdf" target="_blank" rel="noopener">Kifid – Uitspraak 2022-0979 (SNS-leningdeel, 10%/jaar)</a></li>
+        <li><a href="https://www.homefinance.nl/venn-hypotheekrente-actuele-rentes-en-voorwaarden-bekijken/" target="_blank" rel="noopener">HomeFinance – Venn verhuisregeling</a></li>
+        <li><a href="https://www.homefinance.nl/hypotheek/hypotheek-aanbieders/tulp-hypotheken/riant-hypotheek/aanvragen.asp" target="_blank" rel="noopener">HomeFinance – Tulp Riant / Compleet boetevrij aflossen</a></li>
+      </ol>
+    </details>
+  </div>
+</section>
 </main>
 <footer>Voorwaarden vergelijker · hulpmiddel voor adviseurs · geen advies of aanbod</footer>
 
@@ -177,6 +234,7 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   $("#tab-tabel").classList.toggle("verborgen",b.dataset.tab!=="tabel");
   $("#tab-diff").classList.toggle("verborgen",b.dataset.tab!=="diff");
   $("#tab-mail").classList.toggle("verborgen",b.dataset.tab!=="mail");
+  $("#tab-onderzoek").classList.toggle("verborgen",b.dataset.tab!=="onderzoek");
 });
 
 /* ---------- Model (in-memory, geen localStorage) ---------- */
