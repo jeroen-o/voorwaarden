@@ -118,6 +118,27 @@
   #tab-productvergelijker .pvsrc{font-size:12.5px;color:var(--pv-muted)}
   #tab-productvergelijker .pvsrc li{margin-bottom:4px}
   #tab-productvergelijker .pvnote{font-size:12.5px;color:var(--pv-muted)}
+
+  /* ---- Mailing-overzicht (ingevoegd tabblad, eigen variabelen, volledig scoped) ---- */
+  #tab-mailing{--mo-navy:#1D2632;--mo-yellow:#FFCD00;--mo-line:#d9dde3;--mo-soft:#f4f6f8;--mo-ok:#1f7a3d;--mo-muted:#5b6573}
+  #tab-mailing h2{font-size:19px;margin:34px 0 6px;padding-left:10px;border-left:5px solid var(--mo-yellow);color:var(--mo-navy)}
+  #tab-mailing h2:first-of-type{margin-top:0}
+  #tab-mailing .mo-sub{color:var(--mo-muted);margin:0 0 14px;font-size:13px}
+  #tab-mailing .mo-summary{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 8px}
+  #tab-mailing .mo-card{background:var(--mo-soft);border:1px solid var(--mo-line);border-radius:8px;padding:14px 18px;min-width:150px}
+  #tab-mailing .mo-card .n{font-size:26px;font-weight:700;display:block;color:var(--mo-navy)}
+  #tab-mailing .mo-card .l{color:var(--mo-muted);font-size:12.5px}
+  #tab-mailing .mo-wrap{overflow-x:auto;border:1px solid var(--mo-line);border-radius:6px;margin-bottom:10px}
+  #tab-mailing table.mo{border-collapse:collapse;width:100%;min-width:900px;font-size:13.5px}
+  #tab-mailing table.mo th{background:var(--mo-soft);text-align:left;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.02em;color:var(--mo-muted)}
+  #tab-mailing table.mo th,#tab-mailing table.mo td{padding:9px 12px;border-bottom:1px solid var(--mo-line);vertical-align:top}
+  #tab-mailing table.mo tbody tr:last-child td{border-bottom:0}
+  #tab-mailing table.mo tbody tr:hover{background:#fffbe6}
+  #tab-mailing .mo-tijd{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--mo-muted)}
+  #tab-mailing .mo-labels{color:var(--mo-muted);font-size:12.5px;display:block;margin-top:2px}
+  #tab-mailing .mo-note{background:var(--mo-soft);border-left:5px solid var(--mo-yellow);padding:12px 16px;border-radius:0 6px 6px 0;margin:14px 0}
+  #tab-mailing .mo-note ul{margin:6px 0 0;padding-left:20px}
+  #tab-mailing .mo-pill{display:inline-block;background:var(--mo-soft);border:1px solid var(--mo-line);border-radius:999px;padding:1px 9px;font-size:11.5px;color:var(--mo-muted);margin-right:4px}
 </style>
 </head>
 <body>
@@ -131,6 +152,7 @@
   <button data-tab="mail">E-mailsjabloon</button>
   <button data-tab="onderzoek">Onderzoek (concept)</button>
   <button data-tab="productvergelijker">Productvergelijker</button>
+  <button data-tab="mailing">Mailing-overzicht</button>
 </nav>
 
 <main>
@@ -337,6 +359,86 @@
     <p class="pvnote">Gebaseerd op productkaarten, infobladen en verzekeringsvoorwaarden. Bij afwijkingen gelden de polisvoorwaarden en het polisblad.</p>
   </div>
 </section>
+
+<!-- ===================== MAILING-OVERZICHT (ingevoegd tabblad) ===================== -->
+<section id="tab-mailing" class="verborgen">
+  <div class="melding">
+    <b>Let op — persoonsgegevens:</b> deze pagina bevat echte namen en directe e-mailadressen van contactpersonen bij derde partijen. Op jouw verzoek onverkort toegevoegd; houd er rekening mee dat deze gegevens openbaar zichtbaar zijn zodra GitHub Pages voor deze repository actief staat.
+  </div>
+  <div class="kaart">
+    <p class="mo-sub">Verzonden vanuit Outlook (jeroen.oversteegen@blinqx.tech) op 8 november 2026, naar 27 hypotheekverstrekkers en 10 verzekeraars met een bekende contactpersoon. Elke mail is gepersonaliseerd per aanbieder (naam/labels in de aanhef en de tekst) en in HTML opgemaakt met vetgedrukte aanbiedernaam en een opsommingslijst.</p>
+
+    <div class="mo-summary">
+      <div class="mo-card"><span class="n">37</span><span class="l">e-mails verzonden</span></div>
+      <div class="mo-card"><span class="n">27</span><span class="l">hypotheekverstrekkers</span></div>
+      <div class="mo-card"><span class="n">10</span><span class="l">verzekeraars</span></div>
+      <div class="mo-card"><span class="n">8</span><span class="l">verzekeraars overgeslagen (geen contact)</span></div>
+    </div>
+
+    <h2>Hypotheekverstrekkers (27)</h2>
+    <p class="mo-sub">Onderwerp: <em>Opvragen voorwaarden, richtlijnen en acceptatiegids — hypotheekvoorwaarden</em></p>
+    <div class="mo-wrap"><table class="mo"><thead><tr><th>Tijd</th><th>Aanbieder</th><th>Aanhef</th><th>Ontvangers</th></tr></thead><tbody>
+      <tr><td class="mo-tijd">21:07</td><td><b>ABN AMRO</b><span class="mo-labels">ABN AMRO, Florius, Moneyou</span></td><td>Beste Karin en Robert</td><td>karin.polman@nl.abnamro.com; robert.van.lambalgen@florius.nl</td></tr>
+      <tr><td class="mo-tijd">21:08</td><td><b>Achmea</b><span class="mo-labels">Achmea, Centraal Beheer, Attens, Syntrus Achmea, Tellius, Woonfonds</span></td><td>Beste Roeland en Paul</td><td>roeland.oort@achmea.nl; paul.banziger@achmea.nl</td></tr>
+      <tr><td class="mo-tijd">21:08</td><td><b>Allianz</b><span class="mo-labels">Allianz Hypotheken</span></td><td>Beste Bob</td><td>bob.de.leede@allianz.nl; salesdesk.hypotheken@allianz.nl</td></tr>
+      <tr><td class="mo-tijd">21:09</td><td><b>Argenta</b></td><td>Beste Stefan</td><td>stefan.vanengen@argenta.nl; ine.cheung@argenta.be</td></tr>
+      <tr><td class="mo-tijd">21:09</td><td><b>a.s.r.</b><span class="mo-labels">a.s.r. Hypotheken</span></td><td>Beste Neriman en Sander</td><td>neriman.polat@asr.nl; sander.kerst@asr.nl</td></tr>
+      <tr><td class="mo-tijd">21:09</td><td><b>de Volksbank / ASN Bank</b><span class="mo-labels">SNS, RegioBank, BLG Wonen, ASN Bank</span></td><td>Beste Louise en Creon</td><td>louise.brouwer@asnbank.nl; creon.burgmeijer@asnbank.nl</td></tr>
+      <tr><td class="mo-tijd">21:10</td><td><b>DMPM</b><span class="mo-labels">Clarian Wonen, Holland Woont, Hypotrust, IQwoon, Robuust Hypotheken</span></td><td>Beste Mark</td><td>mark.debruijn@dmpm.nl</td></tr>
+      <tr><td class="mo-tijd">21:10</td><td><b>Dynamic Credit</b><span class="mo-labels">bijBouwe, Dynamic Verhuurhypotheek</span></td><td>Beste Kim en Bouwe</td><td>ktarroe@dynamiccredit.com; bkuik@dynamiccredit.com</td></tr>
+      <tr><td class="mo-tijd">21:10</td><td><b>Handelsbanken</b></td><td>Beste Roy en Patrick</td><td>roy.bleijswijk@handelsbanken.nl; patrick.hendriks@handelsbanken.nl</td></tr>
+      <tr><td class="mo-tijd">21:11</td><td><b>ING</b></td><td>Beste Jeroen en Clifton</td><td>jeroen.prevo@ing.com; clifton.fraser@ing.com</td></tr>
+      <tr><td class="mo-tijd">21:11</td><td><b>Jens.nl</b></td><td>Beste Mark</td><td>mark@jens.nl</td></tr>
+      <tr><td class="mo-tijd">21:12</td><td><b>Knab</b><span class="mo-labels">Knab Hypotheken (Bawag)</span></td><td>Beste Bas en Menno</td><td>hypotheken@knab.nl; bas.de.wit@knab.nl; menno.koens@knab.nl</td></tr>
+      <tr><td class="mo-tijd">21:12</td><td><b>Lloyds Bank</b></td><td>Beste Bart</td><td>bart.koster@lloydsbank.nl</td></tr>
+      <tr><td class="mo-tijd">21:12</td><td><b>Merius Hypotheken</b><span class="mo-labels">Merius, Impact (Ingage Aetos)</span></td><td>Beste Sander en Floor</td><td>sander.van.lent@ingage-aetos.com; floor.schoone@ingage-aetos.com</td></tr>
+      <tr><td class="mo-tijd">21:18</td><td><b>MUNT Hypotheken</b></td><td>Beste Menno en Victor</td><td>menno.luiten@munthypotheken.nl; victor.broersma@munthypotheken.nl</td></tr>
+      <tr><td class="mo-tijd">21:19</td><td><b>Nationale-Nederlanden</b><span class="mo-labels">Nationale-Nederlanden Hypotheken, Lot Hypotheken, Woonnu</span></td><td>Beste Michiel en Herman</td><td>michiel.van.den.boom@nn.nl; herman.ouwerkerk@nn.nl</td></tr>
+      <tr><td class="mo-tijd">21:20</td><td><b>Nationale Waarborg</b></td><td>Beste Linda</td><td>l.bogaars@nationalewaarborg.nl</td></tr>
+      <tr><td class="mo-tijd">21:20</td><td><b>NIBC</b><span class="mo-labels">NIBC Direct</span></td><td>Beste Edwin</td><td>edwin.berrevoet@nibc.com</td></tr>
+      <tr><td class="mo-tijd">21:21</td><td><b>Obvion</b></td><td>Beste Arie</td><td>arie.blokland@obvion.nl</td></tr>
+      <tr><td class="mo-tijd">21:22</td><td><b>Orange Credit</b></td><td>Beste Harrie-Jan</td><td>harrie-jan@orangecredit.nl</td></tr>
+      <tr><td class="mo-tijd">21:23</td><td><b>Rabobank</b></td><td>Beste Matthijs en Martin</td><td>matthijs.schouten@rabobank.nl; martin.brandse@rabobank.nl</td></tr>
+      <tr><td class="mo-tijd">21:24</td><td><b>SocioHypotheek</b></td><td>Beste Elise en Bastiaan</td><td>elise@sociohypotheek.nl; bastiaan@sociocompany.nl</td></tr>
+      <tr><td class="mo-tijd">21:25</td><td><b>Triodos Bank</b><span class="mo-labels">Triodos Hypotheken</span></td><td>Beste Dorine</td><td>intermediairsdesk@triodos.nl; dorine.vanbasten@triodos.com</td></tr>
+      <tr><td class="mo-tijd">21:26</td><td><b>Tulp Hypotheken</b><span class="mo-labels">Tulp Hypotheken, bunq</span></td><td>Beste Martijn</td><td>martijn@tulpgroup.com</td></tr>
+      <tr><td class="mo-tijd">21:26</td><td><b>Van Lanschot Kempen</b></td><td>Beste Ralf</td><td>r.vanbetteraij@vanlanschotkempen.com</td></tr>
+      <tr><td class="mo-tijd">21:27</td><td><b>Venn Hypotheken</b></td><td>Beste Pascale</td><td>pascale.prins@vennhypotheken.nl</td></tr>
+      <tr><td class="mo-tijd">21:28</td><td><b>Vista Hypotheken</b></td><td>Beste Koen</td><td>koen.ooms@vista-hypotheken.nl</td></tr>
+    </tbody></table></div>
+
+    <h2>Verzekeraars (10)</h2>
+    <p class="mo-sub">Onderwerp per aanbieder afgestemd op het productassortiment (ORV / woonlastenbeschermer / inkomensverzekering)</p>
+    <div class="mo-wrap"><table class="mo"><thead><tr><th>Tijd</th><th>Aanbieder</th><th>Producten</th><th>Aanhef</th><th>Ontvangers</th></tr></thead><tbody>
+      <tr><td class="mo-tijd">21:32</td><td><b>Achmea</b><span class="mo-labels">Centraal Beheer, Avéro, Interpolis, FBTO</span></td><td><span class="mo-pill">ORV</span><span class="mo-pill">WLB</span><span class="mo-pill">inkomen</span></td><td>Beste Jos en Marcel</td><td>jos.van.doorn@achmea.nl; marcel.de.wit@centraalbeheer.nl</td></tr>
+      <tr><td class="mo-tijd">21:33</td><td><b>Allianz</b></td><td><span class="mo-pill">ORV</span><span class="mo-pill">inkomen</span></td><td>Beste Bob en John</td><td>bob.de.leede@allianz.nl; john.de.jong@allianz.nl</td></tr>
+      <tr><td class="mo-tijd">21:33</td><td><b>a.s.r.</b></td><td><span class="mo-pill">ORV</span><span class="mo-pill">WLB</span><span class="mo-pill">inkomen</span></td><td>Beste Neriman en Sander</td><td>neriman.polat@asr.nl; sander.kerst@asr.nl</td></tr>
+      <tr><td class="mo-tijd">21:34</td><td><b>BNP Paribas Cardif</b></td><td><span class="mo-pill">ORV</span><span class="mo-pill">WLB</span></td><td>Beste Barend, Niek en Guido</td><td>barend.princen@bnpparibascardif.com; niek.overduin@bnpparibascardif.com; guido.wassink@bnpparibascardif.com</td></tr>
+      <tr><td class="mo-tijd">21:35</td><td><b>Credit Life</b></td><td><span class="mo-pill">ORV</span><span class="mo-pill">WLB</span></td><td>Beste Ben</td><td>ben.van-der-velden@creditlife.nl; directie@creditlife.nl</td></tr>
+      <tr><td class="mo-tijd">21:36</td><td><b>Dazure</b></td><td><span class="mo-pill">ORV</span></td><td>Beste Indra</td><td>indra@dazure.nl</td></tr>
+      <tr><td class="mo-tijd">21:37</td><td><b>Dela</b></td><td><span class="mo-pill">ORV</span></td><td>Beste collega's</td><td>relatiebeheer@dela.org; leefdoorplan@dela.org</td></tr>
+      <tr><td class="mo-tijd">21:37</td><td><b>Nationale-Nederlanden</b></td><td><span class="mo-pill">ORV</span><span class="mo-pill">WLB</span><span class="mo-pill">inkomen</span></td><td>Beste Michiel en Herman</td><td>michiel.van.den.boom@nn.nl; herman.ouwerkerk@nn.nl</td></tr>
+      <tr><td class="mo-tijd">21:38</td><td><b>Scildon</b></td><td><span class="mo-pill">ORV</span><span class="mo-pill">WLB</span></td><td>Beste Rolph</td><td>rolph.klijn@scildon.nl</td></tr>
+      <tr><td class="mo-tijd">21:39</td><td><b>TAF</b></td><td><span class="mo-pill">ORV</span><span class="mo-pill">WLB</span><span class="mo-pill">inkomen</span></td><td>Beste Antoine</td><td>a.barkel@taf.nl</td></tr>
+    </tbody></table></div>
+
+    <div class="mo-note">
+      <strong>Niet aangeschreven (verzekeraars zonder bekend e-mailadres)</strong>
+      <ul>
+        <li>De Amersfoortse, Elips Life, Generali, Monuta, Movir, Reaal, Robidus, Zwitserleven — in het contactoverzicht stond hiervoor "geen contact gevonden".</li>
+      </ul>
+    </div>
+
+    <div class="mo-note">
+      <strong>Opmerking bij de verzending</strong>
+      <ul>
+        <li>Bij MUNT Hypotheken ging er tijdens het klikken tijdelijk iets mis in Outlook (een verdwaald concept naar de verkeerde ontvanger en een abusievelijk gearchiveerde mail). Beide zijn direct hersteld: het concept is verwijderd zonder te verzenden en de gearchiveerde mail is teruggezet naar Postvak IN. Vanaf dat moment is bij elke mail eerst gecontroleerd of het compose-venster leeg was, zonder verdere problemen.</li>
+      </ul>
+    </div>
+
+    <p class="mo-sub" style="margin-top:18px">Gegenereerd op basis van Verzonden items in Outlook (jeroen.oversteegen@blinqx.tech), 8 november 2026.</p>
+  </div>
+</section>
 </main>
 <footer>Voorwaarden vergelijker · hulpmiddel voor adviseurs · geen advies of aanbod</footer>
 
@@ -355,6 +457,7 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   $("#tab-mail").classList.toggle("verborgen",b.dataset.tab!=="mail");
   $("#tab-onderzoek").classList.toggle("verborgen",b.dataset.tab!=="onderzoek");
   $("#tab-productvergelijker").classList.toggle("verborgen",b.dataset.tab!=="productvergelijker");
+  $("#tab-mailing").classList.toggle("verborgen",b.dataset.tab!=="mailing");
 });
 
 /* ---------- Model (in-memory, geen localStorage) ---------- */
