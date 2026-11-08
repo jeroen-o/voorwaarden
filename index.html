@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voorwaarden vergelijker</title>
+<style>
+  :root{
+    --hb-blauw:#8a5a35;      /* Blinqx V&H huisstijl (bruin/accent uit bronbestand) */
+    --hb-blauw-2:#6e4527;
+    --hb-accent:#d19a66;     /* accent */
+    --bg:#f7f5f1; --card:#fff; --tekst:#2b2620; --muted:#6b6256; --lijn:#ddd6ca;
+    --groen:#e3f4e8; --groen-t:#1d7a3a; --oranje:#fff1dc; --oranje-t:#a35d00;
+    --rood:#fde4e4; --rood-t:#b42323;
+    --ins:#d8f3dc; --del:#fbd5d5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--tekst);font-size:15px}
+  header{background:var(--hb-blauw);color:#fff;padding:18px 24px;border-bottom:4px solid var(--hb-accent)}
+  header h1{margin:0;font-size:22px;font-weight:600}
+  header p{margin:4px 0 0;opacity:.85;font-size:14px}
+  nav{display:flex;gap:4px;padding:0 24px;background:var(--hb-blauw);}
+  nav button{background:transparent;color:#cfd9e8;border:0;padding:10px 16px;font-size:14px;cursor:pointer;border-radius:6px 6px 0 0}
+  nav button.actief{background:var(--bg);color:var(--hb-blauw);font-weight:600}
+  main{padding:20px 24px;max-width:1400px;margin:0 auto}
+  .kaart{background:var(--card);border:1px solid var(--lijn);border-radius:10px;padding:16px;margin-bottom:16px}
+  .balk{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .knop{background:var(--hb-blauw);color:#fff;border:0;border-radius:6px;padding:8px 14px;font-size:14px;cursor:pointer}
+  .knop:hover{background:var(--hb-blauw-2)}
+  .knop.licht{background:#fff;color:var(--hb-blauw);border:1px solid var(--hb-blauw)}
+  .knop.accent{background:var(--hb-accent)}
+  .knop.klein{padding:3px 8px;font-size:12px}
+  label.chk{display:flex;gap:6px;align-items:center;font-size:14px;cursor:pointer}
+  .melding{background:#fff8e6;border-left:4px solid var(--hb-accent);padding:10px 14px;border-radius:6px;font-size:13px;color:#4a3b14;margin-bottom:16px}
+  .tabelwrap{overflow-x:auto}
+  table.vgl{border-collapse:collapse;width:100%;min-width:600px}
+  table.vgl th,table.vgl td{border:1px solid var(--lijn);padding:6px;vertical-align:top}
+  table.vgl thead th{background:var(--hb-blauw);color:#fff;position:sticky;top:0;font-weight:600;min-width:180px}
+  table.vgl thead th:first-child{min-width:220px}
+  table.vgl tbody th{background:#eef2f7;text-align:left;font-weight:600}
+  table.vgl tr.groep th{background:var(--hb-blauw-2);color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+  table.vgl tr.verschil > th:first-child{box-shadow:inset 4px 0 0 var(--hb-accent)}
+  .kop{display:flex;gap:4px;align-items:center}
+  .kop input{flex:1;background:transparent;border:1px dashed transparent;color:inherit;font:inherit;padding:3px}
+  .kop input:hover,.kop input:focus{border-color:rgba(255,255,255,.5);outline:0}
+  tbody th .kop input{color:var(--tekst)}
+  tbody th .kop input:hover,tbody th .kop input:focus{border-color:var(--lijn)}
+  .x{background:transparent;border:0;color:inherit;opacity:.5;cursor:pointer;font-size:15px}
+  .x:hover{opacity:1}
+  td textarea{width:100%;min-height:42px;border:1px solid transparent;border-radius:4px;font:inherit;font-size:14px;resize:vertical;padding:4px;background:transparent}
+  td textarea:hover,td textarea:focus{border-color:var(--lijn);outline:0;background:#fff}
+  td.s1{background:var(--groen)} td.s2{background:var(--oranje)} td.s3{background:var(--rood)}
+  .score{display:flex;gap:3px;margin-top:3px}
+  .score span{width:14px;height:14px;border-radius:50%;border:1px solid #b8c1cc;cursor:pointer;display:inline-block}
+  .score span[data-s="1"]{background:var(--groen-t)} .score span[data-s="2"]{background:#e08a00} .score span[data-s="3"]{background:var(--rood-t)} .score span[data-s="0"]{background:#fff}
+  .score span.aan{outline:2px solid var(--hb-blauw);outline-offset:1px}
+  .legenda{display:flex;gap:14px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .legenda i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:800px){.grid2{grid-template-columns:1fr}main{padding:16px}}
+  .grid2 textarea{width:100%;min-height:260px;border:1px solid var(--lijn);border-radius:6px;padding:10px;font:inherit;font-size:14px}
+  .grid2 h3,.kaart h3{margin:0 0 8px;font-size:15px;color:var(--hb-blauw)}
+  #diffUit{line-height:1.6;white-space:pre-wrap;word-wrap:break-word;font-size:14px}
+  .mailbox{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;line-height:1.65;white-space:pre-wrap;background:#fbfaf7;border:1px solid var(--lijn);border-radius:6px;padding:16px}
+  .mailbox .veld{color:var(--muted)}
+  .ph{background:rgba(209,154,102,.22);padding:0 3px;border-radius:2px}
+  .mailvelden{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:14px}
+  .mailvelden label{font-size:13px;display:flex;flex-direction:column;gap:3px}
+  .mailvelden input,.mailvelden select{padding:6px;border:1px solid var(--lijn);border-radius:4px;font:inherit}
+  ins{background:var(--ins);text-decoration:none;color:#0f5132}
+  del{background:var(--del);color:#842029}
+  .stat{display:flex;gap:16px;font-size:13px;color:var(--muted);margin-bottom:10px;flex-wrap:wrap}
+  .stat b{color:var(--tekst)}
+  .verborgen{display:none!important}
+  footer{font-size:12px;color:var(--muted);text-align:center;padding:16px}
+  input[type=file]{display:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>Voorwaarden vergelijker</h1>
+  <p>Blinqx Verzekering &amp; Hypotheek — aanbieders en voorwaarden naast elkaar, of vergelijk twee versies van een voorwaardendocument.</p>
+</header>
+<nav>
+  <button class="actief" data-tab="tabel">Vergelijkingstabel</button>
+  <button data-tab="diff">Tekstvergelijking</button>
+  <button data-tab="mail">E-mailsjabloon</button>
+</nav>
+
+<main>
+<!-- ===================== TABEL ===================== -->
+<section id="tab-tabel">
+  <div class="melding">
+    <b>AFM/compliance — let op:</b> deze tool bevat <u>geen</u> geverifieerde voorwaarden of acceptatiecriteria van aanbieders. De aanbiederslijst hieronder komt uit het aangeleverde werkdocument, waarin de status voor élke aanbieder "op aanvraag" (nog niet opgevraagd/geverifieerd) is. Voorwaarden van verzekeraars en geldverstrekkers staan doorgaans niet (volledig) publiek online en wijzigen regelmatig; ik heb deze daarom niet automatisch van het web gehaald en ook niet zelf ingevuld — gebruik van verouderde of foutief overgenomen voorwaarden is een adviesrisico. Vraag per aanbieder de actuele documentatie op (zie tabblad <i>E-mailsjabloon</i>) en vul de tabel zelf aan, met bron en peildatum per cel. Gegevens worden niet opgeslagen in de browser — gebruik <i>Opslaan (JSON)</i> om je vergelijking te bewaren.
+  </div>
+  <div class="kaart">
+    <div class="balk">
+      <button class="knop" id="addAanbieder">+ Aanbieder</button>
+      <button class="knop" id="addCriterium">+ Criterium</button>
+      <button class="knop licht" id="addGroep">+ Categorie</button>
+      <span style="flex:1"></span>
+      <label class="chk"><input type="checkbox" id="alleenVerschil"> Alleen verschillen tonen</label>
+      <button class="knop licht" id="opslaan">Opslaan (JSON)</button>
+      <button class="knop licht" id="laden">Openen (JSON)</button>
+      <button class="knop licht" id="csv">Export CSV</button>
+      <button class="knop accent" id="print">Afdrukken</button>
+      <button class="knop licht" id="reset">Leegmaken</button>
+      <input type="file" id="bestand" accept=".json,application/json">
+    </div>
+    <div class="balk" style="margin-top:10px">
+      <label style="font-size:14px">Titel/klant: <input id="titel" style="padding:5px;border:1px solid var(--lijn);border-radius:4px;width:260px"></label>
+      <label style="font-size:14px">Peildatum: <input id="peildatum" type="date" style="padding:5px;border:1px solid var(--lijn);border-radius:4px"></label>
+      <span style="flex:1"></span>
+      <div class="legenda">
+        <span><i style="background:var(--groen-t)"></i>Gunstig</span>
+        <span><i style="background:#e08a00"></i>Neutraal / beperkt</span>
+        <span><i style="background:var(--rood-t)"></i>Ongunstig</span>
+        <span><i style="background:#fff;border:1px solid #b8c1cc"></i>Geen oordeel</span>
+      </div>
+    </div>
+  </div>
+  <div class="kaart tabelwrap"><table class="vgl" id="vgl"></table></div>
+</section>
+
+<!-- ===================== DIFF ===================== -->
+<section id="tab-diff" class="verborgen">
+  <div class="kaart">
+    <div class="grid2">
+      <div><h3>Oude versie</h3><textarea id="oud" placeholder="Plak hier de oude tekst van de voorwaarden…"></textarea></div>
+      <div><h3>Nieuwe versie</h3><textarea id="nieuw" placeholder="Plak hier de nieuwe tekst van de voorwaarden…"></textarea></div>
+    </div>
+    <div class="balk" style="margin-top:12px">
+      <button class="knop" id="vergelijk">Vergelijk</button>
+      <label class="chk"><input type="checkbox" id="negeerWit" checked> Witruimte negeren</label>
+      <label class="chk"><input type="checkbox" id="alleenWijz"> Alleen gewijzigde alinea's</label>
+      <span style="flex:1"></span>
+      <button class="knop accent" id="printDiff">Afdrukken</button>
+    </div>
+  </div>
+  <div class="kaart">
+    <h3>Resultaat</h3>
+    <div class="stat" id="diffStat"></div>
+    <div id="diffUit"><span style="color:var(--muted)">Nog geen vergelijking uitgevoerd.</span></div>
+  </div>
+</section>
+
+<!-- ===================== MAIL ===================== -->
+<section id="tab-mail" class="verborgen">
+  <div class="melding">Sjabloon om voorwaarden, acceptatiegidsen en API-mogelijkheden rechtstreeks bij de aanbieder op te vragen — overgenomen uit het werkdocument. Vul de velden in en kopieer de tekst.</div>
+  <div class="kaart">
+    <div class="mailvelden">
+      <label>Aanbieder<input id="mAanbieder" placeholder="bijv. Rabobank"></label>
+      <label>Productnaam<input id="mProduct" placeholder="bijv. hypotheekvoorwaarden"></label>
+      <label>Contactpersoon<input id="mContact" placeholder="[contactpersoon / productmanagement]"></label>
+      <label>Jaartal wijzigingen<input id="mJaar" value="2027"></label>
+    </div>
+    <div class="balk" style="margin-bottom:12px">
+      <button class="knop" id="mailVernieuw">Sjabloon bijwerken</button>
+      <button class="knop licht" id="mailKopieer">Kopieer tekst</button>
+    </div>
+    <div class="mailbox" id="mailBody"></div>
+  </div>
+</section>
+</main>
+<footer>Voorwaarden vergelijker · hulpmiddel voor adviseurs · geen advies of aanbod</footer>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let uid=0; const id=()=>"i"+(++uid)+Date.now().toString(36);
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("actief",x===b));
+  $("#tab-tabel").classList.toggle("verborgen",b.dataset.tab!=="tabel");
+  $("#tab-diff").classList.toggle("verborgen",b.dataset.tab!=="diff");
+  $("#tab-mail").classList.toggle("verborgen",b.dataset.tab!=="mail");
+});
+
+/* ---------- Model (in-memory, geen localStorage) ---------- */
+/* Aanbiederslijst overgenomen uit aangeleverd werkdocument (Blinqx V&H), per categorie.
+   Status per aanbieder was daarin overal "op aanvraag" / niet geverifieerd — er is dus
+   bewust geen voorwaarden-inhoud voor-ingevuld. Criteria-kolommen voeg je zelf toe. */
+const STANDAARD=[
+  ["Overlijdensrisicoverzekeringen (ORV)",["Nationale-Nederlanden","a.s.r.","Aegon","Achmea (Centraal Beheer / Avéro / Interpolis / FBTO)","Allianz","Reaal","Zwitserleven","Dela","Monuta","TAF","Scildon","Cardif (BNP Paribas)","Generali","Elips Life","Robidus"]],
+  ["Woonlastenbeschermers",["Nationale-Nederlanden","a.s.r.","Aegon","Achmea (Centraal Beheer / Avéro)","Cardif (BNP Paribas)","Elips Life","TAF","Scildon","Robidus"]],
+  ["Inkomensverzekeringen",["Movir","De Amersfoortse","Nationale-Nederlanden","a.s.r.","Aegon","Achmea (Avéro / Centraal Beheer / Interpolis)","Reaal","Generali","Allianz","Monuta","TAF"]],
+  ["Hypotheekverstrekkers",["Rabobank","ING","ABN AMRO","de Volksbank (SNS / RegioBank / BLG Wonen / ASN)","Obvion","Aegon Hypotheken","a.s.r. Hypotheken","Nationale-Nederlanden Hypotheken","Achmea / Woonfonds / Centraal Beheer","MUNT Hypotheken","Tulp Hypotheken","Lot Hypotheken","Vista Hypotheken","Hypotrust","Attens Hypotheken","Venn Hypotheken","Neo Hypotheken","BijBouwe","Florius","Allianz Hypotheken","Argenta","ASN Bank","bunq","Clarian Wonen","Fier Hypotheken","Holland Woont","IQwoon","Lloyds Bank","Merius Hypotheken","Moneyou","NIBC Direct","Philips Pensioenfonds","Robuust Hypotheken","Solide Koers Programma","Syntrus Achmea","Woonfonds","Woonnu"]]
+];
+function nieuwModel(){
+  const rijen=[];
+  STANDAARD.forEach(([g,cs])=>{rijen.push({id:id(),type:"groep",naam:g});cs.forEach(c=>rijen.push({id:id(),type:"crit",naam:c}));});
+  return {titel:"",peildatum:new Date().toISOString().slice(0,10),
+    aanbieders:[{id:id(),naam:"Voorwaarden ontvangen (J/N)"},{id:id(),naam:"Bron / peildatum"}],
+    rijen, cellen:{}}; // M.aanbieders = criteria-kolommen, M.rijen = aanbieders per categorie; cellen["rij|aanb"]={t:"",s:0}
+}
+let M=nieuwModel();
+const cel=(r,a)=>M.cellen[r+"|"+a]||{t:"",s:0};
+function zetCel(r,a,o){M.cellen[r+"|"+a]=Object.assign({},cel(r,a),o);}
+
+function isVerschil(r){
+  const w=M.aanbieders.map(a=>{const c=cel(r.id,a.id);return c.t.trim().toLowerCase()+"#"+c.s;});
+  const gevuld=M.aanbieders.some(a=>cel(r.id,a.id).t.trim()||cel(r.id,a.id).s);
+  return gevuld && new Set(w).size>1;
+}
+
+/* ---------- Render ---------- */
+function render(){
+  $("#titel").value=M.titel; $("#peildatum").value=M.peildatum;
+  const alleen=$("#alleenVerschil").checked;
+  let h="<thead><tr><th>Aanbieder</th>";
+  M.aanbieders.forEach(a=>{h+=`<th><div class="kop"><input data-aanb="${a.id}" value="${esc(a.naam)}" aria-label="Naam criterium"><button class="x" data-delaanb="${a.id}" title="Verwijder criterium">×</button></div></th>`;});
+  h+="</tr></thead><tbody>";
+  M.rijen.forEach(r=>{
+    if(r.type==="groep"){
+      h+=`<tr class="groep"><th colspan="${M.aanbieders.length+1}"><div class="kop"><input data-rij="${r.id}" value="${esc(r.naam)}" style="color:#fff;text-transform:uppercase"><button class="x" data-delrij="${r.id}" title="Verwijder categorie">×</button></div></th></tr>`;
+      return;
+    }
+    const vs=isVerschil(r);
+    if(alleen && !vs) return;
+    h+=`<tr class="${vs?"verschil":""}"><th><div class="kop"><input data-rij="${r.id}" value="${esc(r.naam)}"><button class="x" data-delrij="${r.id}" title="Verwijder aanbieder">×</button></div></th>`;
+    M.aanbieders.forEach(a=>{
+      const c=cel(r.id,a.id);
+      h+=`<td class="s${c.s}"><textarea data-r="${r.id}" data-a="${a.id}" placeholder="—">${esc(c.t)}</textarea><div class="score">${[1,2,3,0].map(s=>`<span data-s="${s}" data-r="${r.id}" data-a="${a.id}" class="${c.s===s?"aan":""}" title="${["Geen oordeel","Gunstig","Neutraal / beperkt","Ongunstig"][s]}"></span>`).join("")}</div></td>`;
+    });
+    h+="</tr>";
+  });
+  h+="</tbody>";
+  $("#vgl").innerHTML=h;
+}
+function markeerVerschillen(){
+  // update verschilmarkering zonder volledige her-render (focus blijft behouden)
+  document.querySelectorAll("#vgl tbody tr:not(.groep)").forEach(tr=>{
+    const inp=tr.querySelector("th input[data-rij]"); if(!inp) return;
+    const r=M.rijen.find(x=>x.id===inp.dataset.rij); if(r) tr.classList.toggle("verschil",isVerschil(r));
+  });
+}
+
+/* ---------- Events tabel ---------- */
+const tbl=$("#vgl");
+tbl.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.aanb){M.aanbieders.find(a=>a.id===t.dataset.aanb).naam=t.value;}
+  else if(t.dataset.rij){M.rijen.find(r=>r.id===t.dataset.rij).naam=t.value;}
+  else if(t.tagName==="TEXTAREA"){zetCel(t.dataset.r,t.dataset.a,{t:t.value});markeerVerschillen();}
+});
+tbl.addEventListener("click",e=>{
+  const t=e.target;
+  if(t.dataset.delaanb){const a=M.aanbieders.find(x=>x.id===t.dataset.delaanb);
+    if(confirm(`Criterium "${a.naam}" verwijderen?`)){M.aanbieders=M.aanbieders.filter(x=>x!==a);render();}}
+  else if(t.dataset.delrij){const r=M.rijen.find(x=>x.id===t.dataset.delrij);
+    if(confirm(`"${r.naam}" verwijderen?`)){M.rijen=M.rijen.filter(x=>x!==r);render();}}
+  else if(t.dataset.s!==undefined && t.dataset.r){zetCel(t.dataset.r,t.dataset.a,{s:+t.dataset.s});render();}
+});
+$("#addAanbieder").onclick=()=>{const n=prompt("Naam aanbieder:");if(n){M.rijen.push({id:id(),type:"crit",naam:n});render();}};
+$("#addCriterium").onclick=()=>{const n=prompt("Naam criterium:");if(n){M.aanbieders.push({id:id(),naam:n});render();}};
+$("#addGroep").onclick=()=>{const n=prompt("Naam categorie:");if(n){M.rijen.push({id:id(),type:"groep",naam:n});render();}};
+$("#alleenVerschil").onchange=render;
+$("#titel").oninput=e=>M.titel=e.target.value;
+$("#peildatum").oninput=e=>M.peildatum=e.target.value;
+$("#reset").onclick=()=>{if(confirm("Alle ingevulde gegevens wissen en opnieuw beginnen?")){M=nieuwModel();render();}};
+
+/* ---------- Opslaan / laden / CSV ---------- */
+function download(naam,inhoud,type){
+  const b=new Blob([inhoud],{type}); const u=URL.createObjectURL(b);
+  const a=document.createElement("a"); a.href=u; a.download=naam; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(u),1000);
+}
+const bestandsnaam=ext=>("voorwaarden-"+(M.titel||"vergelijking")+"-"+(M.peildatum||"")).replace(/[^\w\-]+/g,"_")+"."+ext;
+$("#opslaan").onclick=()=>download(bestandsnaam("json"),JSON.stringify({versie:1,...M},null,2),"application/json");
+$("#laden").onclick=()=>$("#bestand").click();
+$("#bestand").onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{try{const d=JSON.parse(rd.result);
+      if(!Array.isArray(d.aanbieders)||!Array.isArray(d.rijen)) throw 0;
+      M={titel:d.titel||"",peildatum:d.peildatum||"",aanbieders:d.aanbieders,rijen:d.rijen,cellen:d.cellen||{}};render();
+    }catch(_){alert("Dit bestand is geen geldige vergelijking.");}};
+  rd.readAsText(f); e.target.value="";
+};
+$("#csv").onclick=()=>{
+  const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+  const lbl=["","Gunstig","Neutraal","Ongunstig"];
+  const rows=[["Categorie","Aanbieder",...M.aanbieders.flatMap(a=>[a.naam,a.naam+" (oordeel)"])].map(q).join(";")];
+  let g="";
+  M.rijen.forEach(r=>{ if(r.type==="groep"){g=r.naam;return;}
+    rows.push([g,r.naam,...M.aanbieders.flatMap(a=>{const c=cel(r.id,a.id);return[c.t,lbl[c.s]];})].map(q).join(";"));});
+  download(bestandsnaam("csv"),"﻿"+rows.join("\r\n"),"text/csv;charset=utf-8");
+};
+
+/* ---------- Print via window.open (iframe-veilig) ---------- */
+function printVenster(titel,body){
+  const w=window.open("","_blank");
+  if(!w){alert("Pop-up geblokkeerd. Sta pop-ups toe om af te drukken.");return;}
+  const css=`body{font-family:Segoe UI,Arial,sans-serif;color:#1c2430;font-size:11px;margin:20px}
+    h1{color:#0b2d5b;font-size:18px;margin:0 0 4px;border-bottom:3px solid #f39200;padding-bottom:6px}
+    .meta{color:#5b6675;margin-bottom:12px}
+    table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd3dd;padding:4px 6px;vertical-align:top;text-align:left;white-space:pre-wrap}
+    thead th{background:#0b2d5b;color:#fff}tr.g th{background:#1f4f8f;color:#fff;text-transform:uppercase}
+    td.s1{background:#e3f4e8}td.s2{background:#fff1dc}td.s3{background:#fde4e4}
+    ins{background:#d8f3dc;text-decoration:none}del{background:#fbd5d5}
+    .d{white-space:pre-wrap;line-height:1.5;font-size:12px}
+    .disc{margin-top:14px;color:#5b6675;font-size:10px}
+    @page{size:A4 landscape;margin:12mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
+  w.document.open();
+  w.document.write(`<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><title>${esc(titel)}</title><style>${css}</style></head><body>${body}<script>window.onload=function(){window.focus();window.print();}<\/script></body></html>`);
+  w.document.close();
+}
+const datumNL=d=>{if(!d)return"";const[y,m,dd]=d.split("-");return `${dd}-${m}-${y}`;};
+$("#print").onclick=()=>{
+  const alleen=$("#alleenVerschil").checked;
+  let h=`<h1>Voorwaardenvergelijking${M.titel?" – "+esc(M.titel):""}</h1><div class="meta">Peildatum: ${esc(datumNL(M.peildatum))}${alleen?" · alleen verschillen":""}</div><table><thead><tr><th>Aanbieder</th>${M.aanbieders.map(a=>`<th>${esc(a.naam)}</th>`).join("")}</tr></thead><tbody>`;
+  M.rijen.forEach(r=>{
+    if(r.type==="groep"){h+=`<tr class="g"><th colspan="${M.aanbieders.length+1}">${esc(r.naam)}</th></tr>`;return;}
+    if(alleen&&!isVerschil(r))return;
+    h+=`<tr><th>${esc(r.naam)}</th>${M.aanbieders.map(a=>{const c=cel(r.id,a.id);return`<td class="s${c.s}">${esc(c.t)}</td>`;}).join("")}</tr>`;
+  });
+  h+=`</tbody></table><div class="disc">Overzicht op basis van door de gebruiker ingevoerde gegevens. Controleer altijd de actuele productvoorwaarden van de geldverstrekker. Dit overzicht is geen advies en geen aanbod.</div>`;
+  printVenster("Voorwaardenvergelijking",h);
+};
+
+/* ---------- Tekstvergelijking ---------- */
+function lcsOps(a,b,eq){
+  // Klassieke LCS met prefix/suffix-trimming; retourneert [{op:'=',v}|{op:'-',v}|{op:'+',v}]
+  let s=0; while(s<a.length&&s<b.length&&eq(a[s],b[s]))s++;
+  let ea=a.length,eb=b.length; while(ea>s&&eb>s&&eq(a[ea-1],b[eb-1])){ea--;eb--;}
+  const A=a.slice(s,ea),B=b.slice(s,eb),n=A.length,m=B.length,ops=[];
+  for(let i=0;i<s;i++)ops.push({op:"=",v:a[i],w:b[i]});
+  if(n*m>9e6){A.forEach(v=>ops.push({op:"-",v}));B.forEach(v=>ops.push({op:"+",v}));}
+  else{
+    const T=Array.from({length:n+1},()=>new Uint32Array(m+1));
+    for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)T[i][j]=eq(A[i],B[j])?T[i+1][j+1]+1:Math.max(T[i+1][j],T[i][j+1]);
+    let i=0,j=0;
+    while(i<n&&j<m){ if(eq(A[i],B[j])){ops.push({op:"=",v:A[i],w:B[j]});i++;j++;}
+      else if(T[i+1][j]>=T[i][j+1])ops.push({op:"-",v:A[i++]}); else ops.push({op:"+",v:B[j++]}); }
+    while(i<n)ops.push({op:"-",v:A[i++]}); while(j<m)ops.push({op:"+",v:B[j++]});
+  }
+  for(let i=ea;i<a.length;i++)ops.push({op:"=",v:a[i],w:b[i-ea+eb]});
+  return ops;
+}
+const norm=(s,wit)=>wit?s.replace(/\s+/g," ").trim():s;
+function woordDiff(x,y,wit){
+  const tk=s=>s.match(/\s+|[\wÀ-ÿ€%.,-]+|[^\s\w]/g)||[];
+  const ops=lcsOps(tk(x),tk(y),(p,q)=>wit&&/^\s+$/.test(p)&&/^\s+$/.test(q)?true:p===q);
+  let h="",cur=null,buf="";
+  const flush=()=>{if(!buf)return;h+=cur==="+"?`<ins>${esc(buf)}</ins>`:cur==="-"?`<del>${esc(buf)}</del>`:esc(buf);buf="";};
+  ops.forEach(o=>{const v=o.op==="="?(o.w??o.v):o.v;if(o.op!==cur){flush();cur=o.op;}buf+=v;});
+  flush(); return h;
+}
+let laatsteDiff="";
+function vergelijk(){
+  const wit=$("#negeerWit").checked, alleen=$("#alleenWijz").checked;
+  const split=s=>s.replace(/\r\n?/g,"\n").split(/\n\s*\n|\n/).map(p=>p).filter(p=>p.trim()!=="");
+  const A=split($("#oud").value),B=split($("#nieuw").value);
+  if(!A.length&&!B.length){$("#diffUit").innerHTML='<span style="color:var(--muted)">Plak in beide velden een tekst.</span>';$("#diffStat").innerHTML="";return;}
+  const ops=lcsOps(A,B,(p,q)=>norm(p,wit)===norm(q,wit));
+  let h="",gelijk=0,gewijzigd=0,toegevoegd=0,verwijderd=0,overgeslagen=0;
+  const skip=()=>{if(overgeslagen){h+=`<div style="color:var(--muted);font-style:italic;margin:6px 0">… ${overgeslagen} ongewijzigde alinea${overgeslagen>1?"'s":""} …</div>`;overgeslagen=0;}};
+  for(let k=0;k<ops.length;){
+    if(ops[k].op==="="){gelijk++; if(alleen)overgeslagen++; else h+=`<p style="margin:0 0 8px">${esc(ops[k].w??ops[k].v)}</p>`; k++; continue;}
+    const del=[],add=[]; while(k<ops.length&&ops[k].op!=="="){(ops[k].op==="-"?del:add).push(ops[k].v);k++;}
+    skip();
+    const n=Math.min(del.length,add.length);
+    for(let i=0;i<n;i++){gewijzigd++;h+=`<p style="margin:0 0 8px;border-left:3px solid var(--hb-accent);padding-left:8px">${woordDiff(del[i],add[i],wit)}</p>`;}
+    del.slice(n).forEach(v=>{verwijderd++;h+=`<p style="margin:0 0 8px;border-left:3px solid #b42323;padding-left:8px"><del>${esc(v)}</del></p>`;});
+    add.slice(n).forEach(v=>{toegevoegd++;h+=`<p style="margin:0 0 8px;border-left:3px solid #1d7a3a;padding-left:8px"><ins>${esc(v)}</ins></p>`;});
+  }
+  skip();
+  if(!gewijzigd&&!toegevoegd&&!verwijderd)h='<p style="color:var(--groen-t);font-weight:600">Geen inhoudelijke verschillen gevonden.</p>'+(alleen?"":h);
+  const f=n=>n.toLocaleString("nl-NL");
+  $("#diffStat").innerHTML=`<span>Gewijzigd: <b>${f(gewijzigd)}</b></span><span>Toegevoegd: <b>${f(toegevoegd)}</b></span><span>Verwijderd: <b>${f(verwijderd)}</b></span><span>Ongewijzigd: <b>${f(gelijk)}</b></span><span><ins>toegevoegde tekst</ins> · <del>verwijderde tekst</del></span>`;
+  $("#diffUit").innerHTML=h; laatsteDiff=$("#diffStat").innerHTML.replace(/<span><ins>.*$/,"")+"<hr>"+h;
+}
+$("#vergelijk").onclick=vergelijk;
+$("#negeerWit").onchange=()=>laatsteDiff&&vergelijk();
+$("#alleenWijz").onchange=()=>laatsteDiff&&vergelijk();
+$("#printDiff").onclick=()=>{
+  if(!laatsteDiff){alert("Voer eerst een vergelijking uit.");return;}
+  printVenster("Tekstvergelijking voorwaarden",`<h1>Tekstvergelijking voorwaarden</h1><div class="meta">Afgedrukt op ${new Date().toLocaleDateString("nl-NL")}</div><div class="d">${laatsteDiff}</div>`);
+};
+
+/* ---------- E-mailsjabloon ---------- */
+function mailTekst(){
+  const aanb=$("#mAanbieder").value.trim()||"[naam aanbieder]";
+  const prod=$("#mProduct").value.trim()||"[productnaam, bijv. ORV / woonlastenbeschermer / inkomensverzekering / hypotheek]";
+  const contact=$("#mContact").value.trim()||"[contactpersoon / productmanagement]";
+  const jaar=$("#mJaar").value.trim()||"[jaartal]";
+  return `Aan: ${contact}
+Onderwerp: Opvragen voorwaarden, richtlijnen en acceptatiegids — ${prod}
+
+Geachte heer/mevrouw,
+
+Vanuit Blinqx Verzekering & Hypotheek werken wij aan een vergelijking van productvoorwaarden over meerdere aanbieders heen. Graag ontvangen wij hiervoor van ${aanb} de meest actuele documentatie voor ${prod}:
+
+- Polisvoorwaarden / hypotheekvoorwaarden (huidige versie, inclusief versienummer en ingangsdatum)
+- Acceptatierichtlijnen / acceptatiegids voor adviseurs
+- Premiegrondslagen en eventuele bijzondere acceptatiecriteria (gezondheid, beroep, leeftijdsgrenzen)
+- Actuele rentetarieven/rentebladen (indien van toepassing) en de wijze waarop wijzigingen hierin worden gecommuniceerd
+- Eventuele wijzigingen die voor ${jaar} al zijn aangekondigd
+
+Daarnaast horen wij graag of er een API beschikbaar is waarmee rentetarieven, voorwaarden, acceptatiecriteria en richtlijnen geautomatiseerd kunnen worden opgehaald (en zo ja: onder welke voorwaarden, documentatie en contactpersoon voor technische aansluiting).
+
+Ook ontvangen wij graag een toelichting op de wijze waarop ${aanb} ons op de hoogte houdt van wijzigingen en mutaties in de hierboven genoemde documentatie (bijvoorbeeld via een notificatiekanaal, nieuwsbrief of versiebeheer op een partnerportaal).
+
+Mocht er een separaat kanaal voor intermediairs/distributiepartners zijn waar deze documentatie wordt gepubliceerd, dan vernemen wij dat ook graag.
+
+De door u aangeleverde informatie gebruiken wij voor interne vergelijkingsdoeleinden. Wij aanvaarden geen verantwoordelijkheid voor foutief aangeleverde of verouderde informatie; de aanbieder blijft zelf verantwoordelijk voor het actueel houden van de verstrekte voorwaarden, richtlijnen en tarieven.
+
+Alvast hartelijk dank voor de moeite.
+
+Met vriendelijke groet,
+
+Jeroen Oversteegen
+Non Executive Director Business Partners
+Blinqx Verzekering & Hypotheek
+Hullenbergweg 109, 1101 CL Amsterdam
+j.oversteegen@blinqx.nl · +31 6 21 247 257`;
+}
+function renderMail(){$("#mailBody").textContent=mailTekst();}
+["mAanbieder","mProduct","mContact","mJaar"].forEach(i=>$("#"+i).addEventListener("input",renderMail));
+$("#mailVernieuw").onclick=renderMail;
+$("#mailKopieer").onclick=async()=>{
+  const t=mailTekst();
+  try{await navigator.clipboard.writeText(t);}
+  catch(_){const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(_){}ta.remove();}
+  const b=$("#mailKopieer");const o=b.textContent;b.textContent="Gekopieerd ✓";setTimeout(()=>b.textContent=o,1800);
+};
+renderMail();
+
+render();
+})();
+</script>
+</body>
+</html>
