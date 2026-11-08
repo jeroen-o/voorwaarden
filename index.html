@@ -195,9 +195,9 @@
   <div class="melding">Sjabloon om voorwaarden, acceptatiegidsen en API-mogelijkheden rechtstreeks bij de aanbieder op te vragen — overgenomen uit het werkdocument. Vul de velden in en kopieer de tekst.</div>
   <div class="kaart">
     <div class="mailvelden">
+      <label>Voornaam contactpersoon<input id="mVoornaam" placeholder="bijv. Lisa"></label>
       <label>Aanbieder<input id="mAanbieder" placeholder="bijv. Rabobank"></label>
       <label>Productnaam<input id="mProduct" placeholder="bijv. hypotheekvoorwaarden"></label>
-      <label>Contactpersoon<input id="mContact" placeholder="[contactpersoon / productmanagement]"></label>
       <label>Jaartal wijzigingen<input id="mJaar" value="2027"></label>
     </div>
     <div class="balk" style="margin-bottom:12px">
@@ -561,16 +561,16 @@ $("#printDiff").onclick=()=>{
 
 /* ---------- E-mailsjabloon ---------- */
 function mailTekst(){
+  const voornaam=$("#mVoornaam").value.trim()||"[voornaam]";
   const aanb=$("#mAanbieder").value.trim()||"[naam aanbieder]";
   const prod=$("#mProduct").value.trim()||"[productnaam, bijv. ORV / woonlastenbeschermer / inkomensverzekering / hypotheek]";
-  const contact=$("#mContact").value.trim()||"[contactpersoon / productmanagement]";
   const jaar=$("#mJaar").value.trim()||"[jaartal]";
-  return `Aan: ${contact}
+  return `Aan: ${voornaam}
 Onderwerp: Opvragen voorwaarden, richtlijnen en acceptatiegids — ${prod}
 
-Geachte heer/mevrouw,
+Beste ${voornaam},
 
-Vanuit Blinqx Verzekering & Hypotheek werken wij aan een vergelijking van productvoorwaarden over meerdere aanbieders heen. Graag ontvangen wij hiervoor van ${aanb} de meest actuele documentatie voor ${prod}:
+Vanuit Blinqx Verzekering & Hypotheek werk ik aan een vergelijking van productvoorwaarden over meerdere aanbieders heen. Graag ontvang ik hiervoor van ${aanb} de meest actuele documentatie voor ${prod}:
 
 - Polisvoorwaarden / hypotheekvoorwaarden (huidige versie, inclusief versienummer en ingangsdatum)
 - Acceptatierichtlijnen / acceptatiegids voor adviseurs
@@ -578,13 +578,13 @@ Vanuit Blinqx Verzekering & Hypotheek werken wij aan een vergelijking van produc
 - Actuele rentetarieven/rentebladen (indien van toepassing) en de wijze waarop wijzigingen hierin worden gecommuniceerd
 - Eventuele wijzigingen die voor ${jaar} al zijn aangekondigd
 
-Daarnaast horen wij graag of er een API beschikbaar is waarmee rentetarieven, voorwaarden, acceptatiecriteria en richtlijnen geautomatiseerd kunnen worden opgehaald (en zo ja: onder welke voorwaarden, documentatie en contactpersoon voor technische aansluiting).
+Daarnaast hoor ik graag of er een API beschikbaar is waarmee rentetarieven, voorwaarden, acceptatiecriteria en richtlijnen geautomatiseerd kunnen worden opgehaald (en zo ja: onder welke voorwaarden, documentatie en contactpersoon voor technische aansluiting).
 
-Ook ontvangen wij graag een toelichting op de wijze waarop ${aanb} ons op de hoogte houdt van wijzigingen en mutaties in de hierboven genoemde documentatie (bijvoorbeeld via een notificatiekanaal, nieuwsbrief of versiebeheer op een partnerportaal).
+Ook ontvang ik graag een toelichting op de wijze waarop ${aanb} mij op de hoogte houdt van wijzigingen en mutaties in de hierboven genoemde documentatie (bijvoorbeeld via een notificatiekanaal, nieuwsbrief of versiebeheer op een partnerportaal).
 
-Mocht er een separaat kanaal voor intermediairs/distributiepartners zijn waar deze documentatie wordt gepubliceerd, dan vernemen wij dat ook graag.
+Mocht er een separaat kanaal voor intermediairs/distributiepartners zijn waar deze documentatie wordt gepubliceerd, dan hoor ik dat ook graag.
 
-De door u aangeleverde informatie gebruiken wij voor interne vergelijkingsdoeleinden. Wij aanvaarden geen verantwoordelijkheid voor foutief aangeleverde of verouderde informatie; de aanbieder blijft zelf verantwoordelijk voor het actueel houden van de verstrekte voorwaarden, richtlijnen en tarieven.
+De door jou aangeleverde informatie gebruik ik voor interne vergelijkingsdoeleinden. Ik aanvaard geen verantwoordelijkheid voor foutief aangeleverde of verouderde informatie; de aanbieder blijft zelf verantwoordelijk voor het actueel houden van de verstrekte voorwaarden, richtlijnen en tarieven.
 
 Alvast hartelijk dank voor de moeite.
 
@@ -597,7 +597,7 @@ Hullenbergweg 109, 1101 CL Amsterdam
 j.oversteegen@blinqx.nl · +31 6 21 247 257`;
 }
 function renderMail(){$("#mailBody").textContent=mailTekst();}
-["mAanbieder","mProduct","mContact","mJaar"].forEach(i=>$("#"+i).addEventListener("input",renderMail));
+["mVoornaam","mAanbieder","mProduct","mJaar"].forEach(i=>$("#"+i).addEventListener("input",renderMail));
 $("#mailVernieuw").onclick=renderMail;
 $("#mailKopieer").onclick=async()=>{
   const t=mailTekst();
