@@ -139,6 +139,22 @@
   #tab-mailing .mo-note{background:var(--mo-soft);border-left:5px solid var(--mo-yellow);padding:12px 16px;border-radius:0 6px 6px 0;margin:14px 0}
   #tab-mailing .mo-note ul{margin:6px 0 0;padding-left:20px}
   #tab-mailing .mo-pill{display:inline-block;background:var(--mo-soft);border:1px solid var(--mo-line);border-radius:999px;padding:1px 9px;font-size:11.5px;color:var(--mo-muted);margin-right:4px}
+
+  /* ---- Aanbieders: tegels ---- */
+  #tab-aanbiedersmap .tegelgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+  .tegel{background:#fff;border:1px solid var(--lijn);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s,transform .15s}
+  .tegel:hover{box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-2px)}
+  .tegel .logokop{display:flex;align-items:center;gap:12px}
+  .tegel .logo{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;letter-spacing:.02em;flex-shrink:0}
+  .tegel h4{margin:0;font-size:16px;color:var(--tekst)}
+  .tegel .cat{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .tegel .status{font-size:12.5px;color:var(--muted);margin:0}
+  .tegel .datum{display:inline-block;font-size:11px;font-weight:600;color:var(--hb-blauw);background:var(--bg);border:1px solid var(--lijn);border-radius:999px;padding:2px 8px;width:fit-content}
+  .tegel .doclinks{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+  .tegel .doclinks a{font-size:13.5px;color:var(--hb-blauw);text-decoration:none;display:flex;align-items:center;gap:6px}
+  .tegel .doclinks a:hover{text-decoration:underline}
+  .tegel .doclinks a .pdf{font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--lijn);border-radius:4px;padding:0 5px;margin-left:auto}
+  .tegel.binnenkort{opacity:.55;background:repeating-linear-gradient(135deg,#fff,#fff 10px,#fafafa 10px,#fafafa 20px)}
 </style>
 </head>
 <body>
@@ -443,25 +459,48 @@
 
 <!-- ===================== AANBIEDERS (documentenmap) ===================== -->
 <section id="tab-aanbiedersmap" class="verborgen">
-  <div class="melding">GitHub Pages toont alleen deze <code>index.html</code> en heeft geen mappenoverzicht. De onderstaande links gaan rechtstreeks naar de bestanden in de map <code>aanbieders/</code> van de repository. Een <code>.md</code>-link opent als platte tekst/Markdown in de browser; een <code>.pdf</code>-link opent of downloadt het originele document.</div>
-  <div class="kaart">
-    <h3>Nationale-Nederlanden</h3>
-    <p style="font-size:13px;color:var(--muted);margin-top:-6px">Opgehaald van de adviseursportal (adviseur.nn.nl), 9 november 2026 — zie disclaimers in het document zelf.</p>
-    <ul>
-      <li><a href="aanbieders/nationale-nederlanden/README.md">README — overzicht &amp; bronnen</a></li>
-      <li><a href="aanbieders/nationale-nederlanden/acceptatiegids-hypotheken.md">Acceptatiegids Hypotheken</a></li>
-      <li><a href="aanbieders/nationale-nederlanden/beheergids-hypotheken.md">Beheergids Hypotheken</a></li>
-      <li><a href="aanbieders/nationale-nederlanden/tools.md">Interactieve NN-tools (links)</a></li>
-      <li><a href="aanbieders/nationale-nederlanden/woonnu-downloads.md">Woonnu — downloadlijst</a></li>
-    </ul>
-    <h3>Orange Credit (Woonboot Hypotheek)</h3>
-    <p style="font-size:13px;color:var(--muted);margin-top:-6px">Rechtstreeks aangeleverd per e-mail door Orange Credit (Harrie-Jan van Nunen), 9 november 2026 — originele PDF's bijgevoegd.</p>
-    <ul>
-      <li><a href="aanbieders/orange-credit/README.md">README — overzicht, antwoorden op het e-mailsjabloon &amp; bronnen</a></li>
-      <li><a href="aanbieders/orange-credit/rentetarieven.md">Rentetarieven</a> · <a href="aanbieders/orange-credit/Rentelijst_05-11-2026.pdf">origineel PDF</a></li>
-      <li><a href="aanbieders/orange-credit/acceptatiegids.md">Acceptatiegids</a> · <a href="aanbieders/orange-credit/Acceptatiegids_v2026.2.pdf">origineel PDF</a></li>
-      <li><a href="aanbieders/orange-credit/leningsvoorwaarden.md">Leningsvoorwaarden</a> · <a href="aanbieders/orange-credit/Leningsvoorwaarden_juli_2026.pdf">origineel PDF</a></li>
-    </ul>
+  <div class="melding">GitHub Pages toont alleen deze <code>index.html</code> en heeft geen mappenoverzicht — onderstaande tegels linken rechtstreeks naar de bestanden in <code>aanbieders/</code>. Geen echte merklogo's gebruikt (geen rechten/bronbestand); de gekleurde initialen zijn een neutrale plaatsvervanger. Een <code>.md</code>-link opent als platte tekst; een <code>.pdf</code>-link opent het originele document.</div>
+  <div class="tegelgrid">
+
+    <div class="tegel">
+      <div class="logokop">
+        <div class="logo" style="background:#f2630a">NN</div>
+        <div><h4>Nationale-Nederlanden</h4><div class="cat">Hypotheken</div></div>
+      </div>
+      <span class="datum">📅 Uitgelezen: 9 november 2026</span>
+      <p class="status">Opgehaald van adviseur.nn.nl — samenvatting, niet woordelijk. Zie disclaimers in het document.</p>
+      <div class="doclinks">
+        <a href="aanbieders/nationale-nederlanden/README.md">📄 README — overzicht &amp; bronnen</a>
+        <a href="aanbieders/nationale-nederlanden/acceptatiegids-hypotheken.md">📄 Acceptatiegids Hypotheken</a>
+        <a href="aanbieders/nationale-nederlanden/beheergids-hypotheken.md">📄 Beheergids Hypotheken</a>
+        <a href="aanbieders/nationale-nederlanden/tools.md">🔗 Interactieve NN-tools</a>
+        <a href="aanbieders/nationale-nederlanden/woonnu-downloads.md">📄 Woonnu — downloadlijst</a>
+      </div>
+    </div>
+
+    <div class="tegel">
+      <div class="logokop">
+        <div class="logo" style="background:linear-gradient(135deg,#8a5a35,#d9540c)">OC</div>
+        <div><h4>Orange Credit</h4><div class="cat">Woonboot Hypotheek</div></div>
+      </div>
+      <span class="datum">📅 Uitgelezen: 9 november 2026</span>
+      <p class="status">Rechtstreeks per e-mail aangeleverd door Harrie-Jan van Nunen — volledig (alle pagina's) uitgelezen, originele PDF's bijgevoegd.</p>
+      <div class="doclinks">
+        <a href="aanbieders/orange-credit/README.md">📄 README — overzicht &amp; antwoorden op sjabloon</a>
+        <a href="aanbieders/orange-credit/rentetarieven.md">📄 Rentetarieven<a class="pdf" href="aanbieders/orange-credit/Rentelijst_05-11-2026.pdf">pdf</a></a>
+        <a href="aanbieders/orange-credit/acceptatiegids.md">📄 Acceptatiegids<a class="pdf" href="aanbieders/orange-credit/Acceptatiegids_v2026.2.pdf">pdf</a></a>
+        <a href="aanbieders/orange-credit/leningsvoorwaarden.md">📄 Leningsvoorwaarden<a class="pdf" href="aanbieders/orange-credit/Leningsvoorwaarden_juli_2026.pdf">pdf</a></a>
+      </div>
+    </div>
+
+    <div class="tegel binnenkort">
+      <div class="logokop">
+        <div class="logo" style="background:#9aa3ad">?</div>
+        <div><h4>Volgende aanbieder</h4><div class="cat">Nog toe te voegen</div></div>
+      </div>
+      <p class="status">Stuur een reactiemail of document aan en ik zet er een tegel bij.</p>
+    </div>
+
   </div>
 </section>
 </main>
