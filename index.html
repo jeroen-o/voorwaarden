@@ -153,6 +153,7 @@
   <button data-tab="onderzoek">Onderzoek (concept)</button>
   <button data-tab="productvergelijker">Productvergelijker</button>
   <button data-tab="mailing">Mailing-overzicht</button>
+  <button data-tab="aanbiedersmap">Aanbieders (documenten)</button>
 </nav>
 
 <main>
@@ -439,6 +440,30 @@
     <p class="mo-sub" style="margin-top:18px">Gegenereerd op basis van Verzonden items in Outlook (jeroen.oversteegen@blinqx.tech), 8 november 2026.</p>
   </div>
 </section>
+
+<!-- ===================== AANBIEDERS (documentenmap) ===================== -->
+<section id="tab-aanbiedersmap" class="verborgen">
+  <div class="melding">GitHub Pages toont alleen deze <code>index.html</code> en heeft geen mappenoverzicht. De onderstaande links gaan rechtstreeks naar de bestanden in de map <code>aanbieders/</code> van de repository. Een <code>.md</code>-link opent als platte tekst/Markdown in de browser; een <code>.pdf</code>-link opent of downloadt het originele document.</div>
+  <div class="kaart">
+    <h3>Nationale-Nederlanden</h3>
+    <p style="font-size:13px;color:var(--muted);margin-top:-6px">Opgehaald van de adviseursportal (adviseur.nn.nl), 9 november 2026 — zie disclaimers in het document zelf.</p>
+    <ul>
+      <li><a href="aanbieders/nationale-nederlanden/README.md">README — overzicht &amp; bronnen</a></li>
+      <li><a href="aanbieders/nationale-nederlanden/acceptatiegids-hypotheken.md">Acceptatiegids Hypotheken</a></li>
+      <li><a href="aanbieders/nationale-nederlanden/beheergids-hypotheken.md">Beheergids Hypotheken</a></li>
+      <li><a href="aanbieders/nationale-nederlanden/tools.md">Interactieve NN-tools (links)</a></li>
+      <li><a href="aanbieders/nationale-nederlanden/woonnu-downloads.md">Woonnu — downloadlijst</a></li>
+    </ul>
+    <h3>Orange Credit (Woonboot Hypotheek)</h3>
+    <p style="font-size:13px;color:var(--muted);margin-top:-6px">Rechtstreeks aangeleverd per e-mail door Orange Credit (Harrie-Jan van Nunen), 9 november 2026 — originele PDF's bijgevoegd.</p>
+    <ul>
+      <li><a href="aanbieders/orange-credit/README.md">README — overzicht, antwoorden op het e-mailsjabloon &amp; bronnen</a></li>
+      <li><a href="aanbieders/orange-credit/rentetarieven.md">Rentetarieven</a> · <a href="aanbieders/orange-credit/Rentelijst_05-11-2026.pdf">origineel PDF</a></li>
+      <li><a href="aanbieders/orange-credit/acceptatiegids.md">Acceptatiegids</a> · <a href="aanbieders/orange-credit/Acceptatiegids_v2026.2.pdf">origineel PDF</a></li>
+      <li><a href="aanbieders/orange-credit/leningsvoorwaarden.md">Leningsvoorwaarden</a> · <a href="aanbieders/orange-credit/Leningsvoorwaarden_juli_2026.pdf">origineel PDF</a></li>
+    </ul>
+  </div>
+</section>
 </main>
 <footer>Voorwaarden vergelijker · hulpmiddel voor adviseurs · geen advies of aanbod</footer>
 
@@ -458,6 +483,7 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   $("#tab-onderzoek").classList.toggle("verborgen",b.dataset.tab!=="onderzoek");
   $("#tab-productvergelijker").classList.toggle("verborgen",b.dataset.tab!=="productvergelijker");
   $("#tab-mailing").classList.toggle("verborgen",b.dataset.tab!=="mailing");
+  $("#tab-aanbiedersmap").classList.toggle("verborgen",b.dataset.tab!=="aanbiedersmap");
 });
 
 /* ---------- Model (in-memory, geen localStorage) ---------- */
