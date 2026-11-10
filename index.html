@@ -6,10 +6,12 @@
 <title>Voorwaarden vergelijker</title>
 <style>
   :root{
-    --hb-blauw:#8a5a35;      /* Blinqx V&H huisstijl (bruin/accent uit bronbestand) */
-    --hb-blauw-2:#6e4527;
-    --hb-accent:#d19a66;     /* accent */
-    --bg:#f7f5f1; --card:#fff; --tekst:#2b2620; --muted:#6b6256; --lijn:#ddd6ca;
+    /* Venn-stijl (benadering — site kon niet live geraadpleegd worden door botbescherming;
+       pas aan naar exacte hex-codes zodra bekend): donkergroen, crème, warme terracotta-accent */
+    --hb-blauw:#16342c;
+    --hb-blauw-2:#0e241e;
+    --hb-accent:#e2663b;     /* accent */
+    --bg:#f6f1e7; --card:#fff; --tekst:#1c2420; --muted:#5c6b63; --lijn:#ddd4c4;
     --groen:#e3f4e8; --groen-t:#1d7a3a; --oranje:#fff1dc; --oranje-t:#a35d00;
     --rood:#fde4e4; --rood-t:#b42323;
     --ins:#d8f3dc; --del:#fbd5d5;
@@ -20,7 +22,7 @@
   header h1{margin:0;font-size:22px;font-weight:600}
   header p{margin:4px 0 0;opacity:.85;font-size:14px}
   nav{display:flex;gap:4px;padding:0 24px;background:var(--hb-blauw);}
-  nav button{background:transparent;color:#cfd9e8;border:0;padding:10px 16px;font-size:14px;cursor:pointer;border-radius:6px 6px 0 0}
+  nav button{background:transparent;color:#cfe0d8;border:0;padding:10px 16px;font-size:14px;cursor:pointer;border-radius:6px 6px 0 0}
   nav button.actief{background:var(--bg);color:var(--hb-blauw);font-weight:600}
   main{padding:20px 24px;max-width:1400px;margin:0 auto}
   .kaart{background:var(--card);border:1px solid var(--lijn);border-radius:10px;padding:16px;margin-bottom:16px}
@@ -640,15 +642,15 @@ $("#csv").onclick=()=>{
 function printVenster(titel,body){
   const w=window.open("","_blank");
   if(!w){alert("Pop-up geblokkeerd. Sta pop-ups toe om af te drukken.");return;}
-  const css=`body{font-family:Segoe UI,Arial,sans-serif;color:#1c2430;font-size:11px;margin:20px}
-    h1{color:#0b2d5b;font-size:18px;margin:0 0 4px;border-bottom:3px solid #f39200;padding-bottom:6px}
-    .meta{color:#5b6675;margin-bottom:12px}
-    table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd3dd;padding:4px 6px;vertical-align:top;text-align:left;white-space:pre-wrap}
-    thead th{background:#0b2d5b;color:#fff}tr.g th{background:#1f4f8f;color:#fff;text-transform:uppercase}
+  const css=`body{font-family:Segoe UI,Arial,sans-serif;color:#1c2420;font-size:11px;margin:20px}
+    h1{color:#16342c;font-size:18px;margin:0 0 4px;border-bottom:3px solid #e2663b;padding-bottom:6px}
+    .meta{color:#5c6b63;margin-bottom:12px}
+    table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd4c4;padding:4px 6px;vertical-align:top;text-align:left;white-space:pre-wrap}
+    thead th{background:#16342c;color:#fff}tr.g th{background:#0e241e;color:#fff;text-transform:uppercase}
     td.s1{background:#e3f4e8}td.s2{background:#fff1dc}td.s3{background:#fde4e4}
     ins{background:#d8f3dc;text-decoration:none}del{background:#fbd5d5}
     .d{white-space:pre-wrap;line-height:1.5;font-size:12px}
-    .disc{margin-top:14px;color:#5b6675;font-size:10px}
+    .disc{margin-top:14px;color:#5c6b63;font-size:10px}
     @page{size:A4 landscape;margin:12mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
   w.document.open();
   w.document.write(`<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><title>${esc(titel)}</title><style>${css}</style></head><body>${body}<script>window.onload=function(){window.focus();window.print();}<\/script></body></html>`);
